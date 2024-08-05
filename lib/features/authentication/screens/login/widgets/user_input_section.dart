@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:github_tmdb/bindings/common/widgets/textform/textform_widget.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
-import 'package:github_tmdb/features/authentication/provider/signup_provider.dart';
+import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';
 import 'package:github_tmdb/utils/validators/validation.dart';
 import 'package:provider/provider.dart';
 
@@ -47,8 +47,10 @@ class UserInputSection extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Checkbox(
-                      value: true,
-                      onChanged: (value) {},
+                      value: value.rememberMe,
+                      onChanged: (check){
+                        value.checkBoxRememberMe();
+                      },
                       checkColor: Colors.white,
                       fillColor: MaterialStateProperty.resolveWith((states) {
                         if (states.contains(MaterialState.selected)) {

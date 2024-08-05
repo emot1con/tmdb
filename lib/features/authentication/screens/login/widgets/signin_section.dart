@@ -3,7 +3,7 @@ import 'package:github_tmdb/bindings/common/widgets/button/elevated_button.dart'
 import 'package:github_tmdb/bindings/common/widgets/images/rounded_image.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
-import 'package:github_tmdb/features/authentication/provider/signup_provider.dart';
+import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';
 import 'package:github_tmdb/features/authentication/screens/login/login.dart';
 import 'package:github_tmdb/features/authentication/screens/signup/signup.dart';
 import 'package:provider/provider.dart';
@@ -23,10 +23,11 @@ class SignInSection extends StatelessWidget {
           children: [
             TElevatedButton(
               title: 'Sign-In',
-              onPressed: value.login,
+              onPressed: (){
+                value.login(context);
+              },
             ),
             const SizedBox(height: TSizes.spaceBtwItem),
-          
             const SizedBox(height: TSizes.spaceBtwItem),
             const TDivider(
               title: 'Or',
@@ -51,7 +52,6 @@ class SignInSection extends StatelessWidget {
               ],
             ),
             const SizedBox(height: TSizes.spaceBtwItem),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -69,8 +69,9 @@ class SignInSection extends StatelessWidget {
                   child: const Text(
                     'Sign up',
                     style: TextStyle(
-                        color: TColors.colorPrimary,
-                        fontWeight: FontWeight.bold,),
+                      color: TColors.colorPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
