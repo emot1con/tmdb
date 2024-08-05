@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/movies/bindings/common/widgets/container/bubble_container.dart';
+import 'package:github_tmdb/bindings/common/widgets/container/bubble_container.dart';
 
-import 'package:github_tmdb/movies/features/authentication/screens/login/widgets/foot_section.dart';
-import 'package:github_tmdb/movies/features/authentication/screens/login/widgets/signin_section.dart';
-import 'package:github_tmdb/movies/features/authentication/screens/login/widgets/user_input_section.dart';
-import 'package:github_tmdb/movies/bindings/constant/colors.dart';
-import 'package:github_tmdb/movies/bindings/constant/sizes.dart';
+import 'package:github_tmdb/features/authentication/screens/login/widgets/foot_section.dart';
+import 'package:github_tmdb/features/authentication/screens/login/widgets/signin_section.dart';
+import 'package:github_tmdb/features/authentication/screens/login/widgets/user_input_section.dart';
+import 'package:github_tmdb/constant/colors.dart';
+import 'package:github_tmdb/constant/sizes.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

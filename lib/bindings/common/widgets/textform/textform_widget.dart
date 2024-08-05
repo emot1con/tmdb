@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/movies/bindings/constant/colors.dart';
+import 'package:github_tmdb/constant/colors.dart';
+import 'package:github_tmdb/features/authentication/provider/signup_provider.dart';
+import 'package:github_tmdb/repository/authentication/authentication_repository.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:provider/provider.dart';
 
 class TTextFormField extends StatelessWidget {
   const TTextFormField({
@@ -9,22 +12,30 @@ class TTextFormField extends StatelessWidget {
     this.onPressed,
     this.password = false,
     this.icon,
+    required this.controller,
+    required this.validator, 
   });
   final String label;
   final void Function()? onPressed;
   final bool password;
   final Iconsax? icon;
-
+  final TextEditingController controller;
+  final String? Function(String?) validator;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 55,
+    return Consumer<LoginProvider>(builder:(context, value, child) {
+      return  SizedBox(
+      height: 70,
       child: TextFormField(
+        controller: controller,
+        validator: validator,
         obscureText: password ? true : false,
         decoration: InputDecoration(
           label: Text(
             label,
-            style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
           ),
           suffixIcon: !password
               ? null
@@ -59,10 +70,11 @@ class TTextFormField extends StatelessWidget {
           ),
           focusedErrorBorder: const OutlineInputBorder().copyWith(
             borderRadius: BorderRadius.circular(10),
-            borderSide: const BorderSide(width: 2, color: TColors.colorPrimary),
+            borderSide: const BorderSide(width: 1, color: TColors.colorPrimary),
           ),
         ),
       ),
     );
+    },);
   }
 }

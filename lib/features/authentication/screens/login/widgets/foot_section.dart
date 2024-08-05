@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/movies/bindings/constant/colors.dart';
-import 'package:github_tmdb/movies/bindings/constant/sizes.dart';
+import 'package:github_tmdb/constant/colors.dart';
+import 'package:github_tmdb/constant/sizes.dart';
 
 class FootSectionLogin extends StatelessWidget {
   const FootSectionLogin({

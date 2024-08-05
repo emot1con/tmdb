@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/movies/bindings/constant/colors.dart';
+import 'package:github_tmdb/constant/colors.dart';
 
 class TElevatedButton extends StatelessWidget {
   const TElevatedButton({
