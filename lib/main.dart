@@ -1,13 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/app.dart';
-import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';
-import 'package:github_tmdb/features/authentication/provider/signup/signup_provider.dart';
-import 'package:github_tmdb/features/authentication/screens/login/login.dart';
-import 'package:github_tmdb/features/authentication/screens/signup/signup.dart';
+import 'package:github_tmdb/features/movie/provider/navigations/navigations.dart';
 import 'package:github_tmdb/firebase_options.dart';
-import 'package:github_tmdb/repository/authentication/authentication_repository.dart';
 import 'package:provider/provider.dart';
+
+import 'package:github_tmdb/features/authentication/provider/signup/signup_provider.dart';
+import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,14 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (context) => LoginProvider(
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => SignUpProvider(
-          ),
-        )
+        ChangeNotifierProvider(create: (context) => LoginProvider()),
+        ChangeNotifierProvider(create: (context) => SignUpProvider()),
+        ChangeNotifierProvider(create:(context) => NavigationsProvider()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

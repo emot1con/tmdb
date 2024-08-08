@@ -70,7 +70,6 @@ class SignUpScreen extends StatelessWidget {
                       InputSignInSection(),
                       SizedBox(height: TSizes.spaceBtwSection - 10),
                       FootSection(),
-                      
                     ],
                   ),
                 ),

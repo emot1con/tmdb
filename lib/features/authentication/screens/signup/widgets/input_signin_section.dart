@@ -67,7 +67,7 @@ class InputSignInSection extends StatelessWidget {
                   TElevatedButton(
                     title: 'Create Account',
                     onPressed: () {
-                      value.createUser(context, const MovieScreen());
+                      value.createUser(context, const HomeScreen());
                     },
                   ),
                 ],

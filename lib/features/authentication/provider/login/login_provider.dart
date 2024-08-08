@@ -40,6 +40,14 @@ class LoginProvider with ChangeNotifier {
     }
   }
 
+  void googleLogin() async {
+    try {
+      await authenticationRepository.signInWithGoogle();
+    } catch (e) {
+      throw 'error google login';
+    }
+  }
+
   void logout(BuildContext context) async {
     try {
       await authenticationRepository.logout();

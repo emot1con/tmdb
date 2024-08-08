@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:github_tmdb/features/authentication/screens/login/login.dart';
 import 'package:github_tmdb/features/movie/screens/home/home.dart';
+import 'package:github_tmdb/features/movie/screens/navigations/bottom_navigation_bar.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepository with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
@@ -11,7 +12,7 @@ class AuthenticationRepository with ChangeNotifier {
     try {
       if (_auth.currentUser != null) {
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const MovieScreen(),
+          builder: (context) => const TBottomNavigationBar(),
         ));
       } else {
         Navigator.of(context).push(MaterialPageRoute(
@@ -20,6 +21,20 @@ class AuthenticationRepository with ChangeNotifier {
       }
     } catch (e) {
       throw e.toString();
+    }
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await userAccount?.authentication;
+      final credentials = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+
+      return await _auth.signInWithCredential(credentials);
+    } on Exception catch (e) {
+      throw 'exception->$e';
     }
   }
 

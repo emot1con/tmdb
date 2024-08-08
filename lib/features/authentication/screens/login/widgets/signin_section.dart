@@ -23,7 +23,7 @@ class SignInSection extends StatelessWidget {
           children: [
             TElevatedButton(
               title: 'Sign-In',
-              onPressed: (){
+              onPressed: () {
                 value.login(context);
               },
             ),
@@ -40,7 +40,7 @@ class SignInSection extends StatelessWidget {
                   height: 40,
                   width: 40,
                   imageUrl: 'assets/logos/google-icon.png',
-                  onPressed: () {},
+                  onPressed: value.googleLogin,
                 ),
                 const SizedBox(width: TSizes.spaceBtwItem),
                 TRoundedImage(
