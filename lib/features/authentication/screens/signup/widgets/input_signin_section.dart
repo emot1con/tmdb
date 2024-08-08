@@ -56,7 +56,9 @@ class InputSignInSection extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwItem),
                   TTextFormField(
                     label: 'Password',
+                    visiblePassword: value.isVisible,
                     password: true,
+                    onPressed: value.visiblePassword,
                     controller: value.password,
                     validator: (password) =>
                         TValidator.validatePassword(password),
@@ -65,7 +67,7 @@ class InputSignInSection extends StatelessWidget {
                   TElevatedButton(
                     title: 'Create Account',
                     onPressed: () {
-                      value.createUser(context, const HomeScreen());
+                      value.createUser(context, const MovieScreen());
                     },
                   ),
                 ],

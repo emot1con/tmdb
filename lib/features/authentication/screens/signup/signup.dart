@@ -46,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
                         'Create Your\nAccount',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: TSizes.labelSize - 10,
+                          fontSize: TSizes.labelTextSize - 10,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -70,6 +70,7 @@ class SignUpScreen extends StatelessWidget {
                       InputSignInSection(),
                       SizedBox(height: TSizes.spaceBtwSection - 10),
                       FootSection(),
+                      
                     ],
                   ),
                 ),

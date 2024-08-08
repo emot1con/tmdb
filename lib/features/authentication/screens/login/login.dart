@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                       'TMDB',
                       style: TextStyle(
                         color: TColors.colorPrimary,
-                        fontSize: TSizes.labelSize,
+                        fontSize: TSizes.labelTextSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

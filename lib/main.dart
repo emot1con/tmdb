@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:github_tmdb/app.dart';
 import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';
 import 'package:github_tmdb/features/authentication/provider/signup/signup_provider.dart';
 import 'package:github_tmdb/features/authentication/screens/login/login.dart';
@@ -27,18 +28,16 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => LoginProvider(
-            AuthenticationRepository(),
           ),
         ),
         ChangeNotifierProvider(
           create: (context) => SignUpProvider(
-            AuthenticationRepository(),
           ),
         )
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+        home: AppScreen(),
       ),
     );
   }

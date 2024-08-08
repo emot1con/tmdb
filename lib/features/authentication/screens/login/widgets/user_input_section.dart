@@ -3,6 +3,7 @@ import 'package:github_tmdb/bindings/common/widgets/textform/textform_widget.dar
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';
+import 'package:github_tmdb/features/authentication/screens/login/reset_password.dart';
 import 'package:github_tmdb/utils/validators/validation.dart';
 import 'package:provider/provider.dart';
 
@@ -29,8 +30,9 @@ class UserInputSection extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwItem + 10),
                   TTextFormField(
                     label: 'Password',
+                    visiblePassword: value.isVisible,
                     password: true,
-                    onPressed: () {},
+                    onPressed: value.visiblePassword,
                     controller: value.password,
                     validator: (password) =>
                         TValidator.validatePassword(password),
@@ -48,7 +50,7 @@ class UserInputSection extends StatelessWidget {
                   children: [
                     Checkbox(
                       value: value.rememberMe,
-                      onChanged: (check){
+                      onChanged: (check) {
                         value.checkBoxRememberMe();
                       },
                       checkColor: Colors.white,
@@ -70,7 +72,13 @@ class UserInputSection extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const ResetPassword(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Forget password ?',
                     style: TextStyle(
