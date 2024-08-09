@@ -40,6 +40,8 @@ dependencies:
   firebase_auth: ^4.17.8
   cloud_firestore: ^4.15.8
   google_sign_in: ^6.2.1
+  dio: ^5.5.0+1
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
