@@ -1,5 +1,6 @@
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +23,14 @@ class _TDicoverMoviesState extends State<TDicoverMovies> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<DiscoverMovieProvider>().getDiscoverMovie(context);
+      context.read<PopularMovieProvider>().getPopularrMovie(context);
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<DiscoverMovieProvider>(
+    return Consumer<PopularMovieProvider>(
       builder: (context, value, child) {
         if (value.isLoading) {
           return CarouselSlider(
@@ -48,7 +49,7 @@ class _TDicoverMoviesState extends State<TDicoverMovies> {
           );
         }
         return CarouselSlider(
-          items: value.discoverMovies.map((movie) {
+          items: value.popularMovies.map((movie) {
             return ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Stack(

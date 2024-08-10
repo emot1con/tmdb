@@ -24,4 +24,21 @@ class MovieRepository with ChangeNotifier {
       return Left(e.message!);
     }
   }
+  Future<Either<String, dynamic>> getPopularMovie({int page = 1}) async {
+    try {
+      final response = await dio.get(
+        '/movie/top_rated?api_key=${ApiConstants.apiKey}&page=$page',
+      );
+      if (response.statusCode == 200 && response.data != null) {
+        return Right(response.data);
+      } else {
+        return const Left('Something went wrong.');
+      }
+    } on DioException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  
+
 }
