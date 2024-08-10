@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<PopularMovieProvider>().getPopularrMovie(context);
+      context.read<DiscoverMovieProvider>().getDiscoverMovie(context);
     });
     super.initState();
   }
@@ -34,74 +34,99 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        scrolledUnderElevation: 0.0,
-        title: const TAppBar(),
-        automaticallyImplyLeading: false,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.search,
-              size: 30,
-            ),
-          ),
-          const SizedBox(width: 10),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: Column(
-            children: [
-              const THeadingTitle(title: 'Discover Movies'),
-              const TDicoverMovies(),
-              const SizedBox(height: TSizes.spaceBtwItem),
-              const THeadingTitle(title: 'Popular Movies'),
-              Consumer<PopularMovieProvider>(
-                builder: (context, value, child) {
-                  if (value.isLoading) {
-                    return TShimmer();
-                  }
-                  return SizedBox(
-                    height: 250,
-                    width: double.infinity,
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        final movie = value.popularMovies[index];
-                        return SizedBox(
-                          height: 220,
-                          width: 170,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Stack(
-                              children: [
-                                Image.network(
-                                  '${ApiConstants.imageUrlw500}${movie.posterPath}',
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                                
-                              ],
+      body: Consumer<DiscoverMovieProvider>(
+        builder: (context, value, child) {
+          return NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  floating: true,
+                  pinned: true,
+                  expandedHeight: 340,
+                  flexibleSpace: PageView(
+                    children: value.discoverMovies.map((discover) {
+                      return Stack(
+                        children: [
+                          SizedBox(
+                            height: 450,
+                            child: Image.network(
+                              '${ApiConstants.imageUrlOriginal}${discover.backdropPath}',
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(width: 10);
-                      },
-                      itemCount: value.popularMovies.length,
-                    ),
-                  );
-                },
-              )
-            ],
-          ),
-        ),
+                          Container(
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Colors.transparent, Colors.black],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ];
+            },
+            body: Padding(
+              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              child: Column(
+                children: [
+                  const THeadingTitle(title: 'Most Popular'),
+                  const TDicoverMovies(),
+                  const SizedBox(height: TSizes.spaceBtwItem),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 }
+
+
+
+
+// Consumer<PopularMovieProvider>(
+//                 builder: (context, value, child) {
+//                   if (value.isLoading) {
+//                     return TShimmer();
+//                   }
+//                   return SizedBox(
+//                     height: 250,
+//                     width: double.infinity,
+//                     child: ListView.separated(
+//                       shrinkWrap: true,
+//                       scrollDirection: Axis.horizontal,
+//                       itemBuilder: (context, index) {
+//                         final movie = value.popularMovies[index];
+//                         return SizedBox(
+//                           height: 220,
+//                           width: 170,
+//                           child: ClipRRect(
+//                             borderRadius: BorderRadius.circular(12),
+//                             child: Stack(
+//                               children: [
+//                                 Image.network(
+//                                   '${ApiConstants.imageUrlw500}${movie.posterPath}',
+//                                   width: double.infinity,
+//                                   fit: BoxFit.cover,
+//                                 ),
+                                
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                       separatorBuilder: (context, index) {
+//                         return const SizedBox(width: 10);
+//                       },
+//                       itemCount: value.popularMovies.length,
+//                     ),
+//                   );
+//                 },
+//               )
