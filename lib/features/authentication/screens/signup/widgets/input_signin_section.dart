@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/bindings/common/widgets/button/button_with_text.dart';
-import 'package:github_tmdb/bindings/common/widgets/button/elevated_button.dart';
-import 'package:github_tmdb/bindings/common/widgets/divider/divder.dart';
-import 'package:github_tmdb/bindings/common/widgets/textform/textform_widget.dart';
+import 'package:github_tmdb/widgets/button/button_with_text.dart';
+import 'package:github_tmdb/widgets/button/elevated_button.dart';
+import 'package:github_tmdb/widgets/divider/divder.dart';
+import 'package:github_tmdb/widgets/textform/textform_widget.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/signup/signup_provider.dart';
 import 'package:github_tmdb/features/authentication/screens/signup/widgets/foot_section.dart';

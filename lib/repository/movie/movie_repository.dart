@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:github_tmdb/constant/api_constants.dart';
-import 'package:github_tmdb/features/movie/models/movie_models.dart';
 
 class MovieRepository with ChangeNotifier {
   final Dio dio = Dio(
     BaseOptions(
-        baseUrl: 'https://api.themoviedb.org/3/', queryParameters: {'page': 1}),
+        baseUrl: ApiConstants.baseUrl, queryParameters: {'page': 1}),
   );
 
   Future<Either<String, dynamic>> getDiscoverMovie({int page = 1}) async {

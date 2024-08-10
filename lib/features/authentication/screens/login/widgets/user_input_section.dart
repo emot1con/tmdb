@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/bindings/common/widgets/textform/textform_widget.dart';
+import 'package:github_tmdb/widgets/textform/textform_widget.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';

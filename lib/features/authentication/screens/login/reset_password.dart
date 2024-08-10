@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/bindings/common/widgets/button/elevated_button.dart';
-import 'package:github_tmdb/bindings/common/widgets/button/icon_button.dart';
-import 'package:github_tmdb/bindings/common/widgets/container/bubble_container.dart';
-import 'package:github_tmdb/bindings/common/widgets/textform/textform_widget.dart';
+import 'package:github_tmdb/widgets/button/elevated_button.dart';
+import 'package:github_tmdb/widgets/button/icon_button.dart';
+import 'package:github_tmdb/widgets/container/bubble_container.dart';
+import 'package:github_tmdb/widgets/textform/textform_widget.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';

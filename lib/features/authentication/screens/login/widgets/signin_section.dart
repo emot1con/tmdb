@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/bindings/common/widgets/button/elevated_button.dart';
-import 'package:github_tmdb/bindings/common/widgets/images/rounded_image.dart';
+import 'package:github_tmdb/widgets/button/elevated_button.dart';
+import 'package:github_tmdb/widgets/images/rounded_image.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/login/login_provider.dart';
@@ -8,7 +8,7 @@ import 'package:github_tmdb/features/authentication/screens/login/login.dart';
 import 'package:github_tmdb/features/authentication/screens/signup/signup.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../bindings/common/widgets/divider/divder.dart';
+import '../../../../../widgets/divider/divder.dart';
 
 class SignInSection extends StatelessWidget {
   const SignInSection({

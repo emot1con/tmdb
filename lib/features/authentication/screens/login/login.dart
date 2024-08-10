@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/bindings/common/widgets/container/bubble_container.dart';
+import 'package:github_tmdb/widgets/container/bubble_container.dart';
 
 import 'package:github_tmdb/features/authentication/screens/login/widgets/foot_section.dart';
 import 'package:github_tmdb/features/authentication/screens/login/widgets/signin_section.dart';
