@@ -1,6 +1,6 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
+import 'package:github_tmdb/widgets/wrap/genres.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +34,7 @@ class _TDicoverMoviesState extends State<TDicoverMovies> {
       builder: (context, value, child) {
         if (value.isLoading) {
           return CarouselSlider(
-            items:const [
+            items: const [
               TShimmer(),
               TShimmer(),
               TShimmer(),
@@ -115,25 +115,7 @@ class _TDicoverMoviesState extends State<TDicoverMovies> {
                         const SizedBox(
                           height: TSizes.spaceBtwItem - 10,
                         ),
-                        TRoundedContainer(
-                          color: Colors.black54.withOpacity(0.6),
-                          padding: 6,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children:
-                                movie.getGenres().asMap().entries.map((entry) {
-                              int idx = entry.key;
-                              String genre = entry.value;
-                              return Text(
-                                  idx < movie.getGenres().length - 1
-                                      ? '$genre | '
-                                      : genre,
-                                  style: TextStyle(
-                                      color: Colors.white.withOpacity(0.9),
-                                      fontSize: 13));
-                            }).toList(),
-                          ),
-                        ),
+                        TGenres(genres: movie.getGenres()),
                       ],
                     ),
                   ),

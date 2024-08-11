@@ -6,8 +6,10 @@ class TShimmer extends StatelessWidget {
   const TShimmer({
     super.key,
     this.radius = 12,
+    this.height,
   });
   final double radius;
+  final double ?height;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class TShimmer extends StatelessWidget {
         baseColor: Colors.grey.shade300,
         highlightColor: Colors.grey.shade200,
         child: Container(
+          height: height,
           decoration: const BoxDecoration(color: Colors.white),
         ),
       ),

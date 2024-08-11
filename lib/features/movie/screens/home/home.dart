@@ -8,12 +8,14 @@ import 'package:github_tmdb/features/movie/screens/home/widgets/discover_movie.d
 import 'package:github_tmdb/widgets/container/rounded_container.dart';
 import 'package:github_tmdb/widgets/heading/heading.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
+import 'package:github_tmdb/widgets/wrap/genres.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 import 'package:github_tmdb/widgets/appbar/appbar.dart';
 import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,43 +38,147 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Consumer<DiscoverMovieProvider>(
         builder: (context, value, child) {
+          if (value.isLoading) {
+            return const TShimmer(height: 340);
+          }
           return NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
                 SliverAppBar(
                   automaticallyImplyLeading: false,
                   floating: true,
-                  pinned: true,
                   expandedHeight: 340,
-                  flexibleSpace: PageView(
-                    children: value.discoverMovies.map((discover) {
-                      return Stack(
-                        children: [
-                          SizedBox(
-                            height: 450,
-                            child: Image.network(
-                              '${ApiConstants.imageUrlOriginal}${discover.backdropPath}',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Colors.transparent, Colors.black],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Stack(
+                      children: [
+                        PageView(
+                          controller: value.pageController,
+                          onPageChanged: value.updatePageIndicator,
+                          children: value.discoverMovies.map(
+                            (discover) {
+                              return Stack(
+                                children: [
+                                  Positioned.fill(
+                                    child: Image.network(
+                                      '${ApiConstants.imageUrlOriginal}${discover.backdropPath}',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.transparent,
+                                          Colors.black
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 35,
+                                    left: 15,
+                                    right: 20,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        // Poster Section
+                                        SizedBox(
+                                          height: 190,
+                                          width: 130,
+                                          child: Image.network(
+                                            '${ApiConstants.imageUrlw500}${discover.posterPath}',
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+
+                                        Expanded(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              TRoundedContainer(
+                                                width: 65,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.star,
+                                                      color: Colors.amber,
+                                                    ),
+                                                    const SizedBox(width: 5),
+                                                    Text(
+                                                      discover.voteAverage
+                                                          .toString()
+                                                          .substring(0, 3),
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: TSizes
+                                                            .smallTextSize,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Text(
+                                                discover.title,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize:
+                                                      TSizes.mediumTextSize,
+                                                ),
+                                                maxLines: 2, // Maksimal 2 baris
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              TGenres(
+                                                genres: discover.getGenres(),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ).toList(),
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 12),
+                            child: SmoothPageIndicator(
+                              controller: value.pageController,
+                              count: 5,
+                              effect: const ExpandingDotsEffect(
+                                activeDotColor: TColors.colorPrimary,
+                                dotWidth: 7,
+                                expansionFactor: 5,
+                                dotHeight: 6,
                               ),
                             ),
                           ),
-                        ],
-                      );
-                    }).toList(),
+                        ),
+                      ],
+                    ),
                   ),
+                  clipBehavior: Clip.none, // Pastikan gambar tidak mengecil
                 ),
               ];
             },
             body: Padding(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: TSizes.defaultSpace, vertical: 10),
               child: Column(
                 children: [
                   const THeadingTitle(title: 'Most Popular'),

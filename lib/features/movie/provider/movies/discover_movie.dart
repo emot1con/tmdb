@@ -8,8 +8,15 @@ class DiscoverMovieProvider with ChangeNotifier {
   bool _isLoading = false;
   final List<MovieModel> _dicoverMovies = [];
 
+  int currentPageIndex = 0;
+  PageController pageController = PageController();
   bool get isLoading => _isLoading;
   List<MovieModel> get discoverMovies => _dicoverMovies;
+
+  void updatePageIndicator(int index){
+    currentPageIndex = index;
+    notifyListeners();
+  }
 
   void getDiscoverMovie(BuildContext context, {int page = 1}) async {
     _isLoading = true;
@@ -24,8 +31,10 @@ class DiscoverMovieProvider with ChangeNotifier {
       },
       (movieList) {
         final movies = ListMovieModel.fromJson(movieList);
+
         _dicoverMovies.clear();
         _dicoverMovies.addAll(movies.results);
+        currentPageIndex = _dicoverMovies.length;
         notifyListeners();
         print('discover movies api success');
       },

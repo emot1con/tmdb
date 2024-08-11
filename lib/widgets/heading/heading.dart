@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
@@ -20,13 +19,17 @@ class THeadingTitle extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-              fontSize: TSizes.mediumTextSize, fontWeight: FontWeight.bold),
+            fontSize: TSizes.mediumTextSize,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         if (textButton)
           TextButton(
             onPressed: () {},
-            child: const Text('See all',
-                style: TextStyle(color: TColors.colorPrimary)),
+            child: const Text(
+              'See all',
+              style: TextStyle(color: TColors.colorPrimary),
+            ),
           ),
       ],
     );
