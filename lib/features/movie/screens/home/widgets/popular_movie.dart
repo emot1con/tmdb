@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:github_tmdb/constant/api_constants.dart';
+import 'package:github_tmdb/features/movie/models/movie_models.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
 import 'package:github_tmdb/features/movie/screens/home/widgets/poster_movie.dart';
+import 'package:github_tmdb/widgets/grid/movie_grid.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 import 'package:provider/provider.dart';
 
@@ -27,26 +30,25 @@ class _PopularMovieState extends State<PopularMovie> {
   Widget build(BuildContext context) {
     return Consumer<PopularMovieProvider>(
       builder: (context, value, child) {
-        if(value.isLoading){
-          return const  TShimmer();
+        if (value.isLoading) {
+          return GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: value.popularMovies.length,
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              childAspectRatio: 2 / 3,
+            ),
+            itemBuilder: (context, index) => const TShimmer(height: 220),
+          );
         }
         return SizedBox(
-          child: ListView.separated(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final movie = value.popularMovies[index];
-              return TPosterMovie(
-                movie: movie,
-                textColor: Colors.black,
-                isPopularMovie: true,
-              );
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 10);
-            },
-            itemCount: value.popularMovies.length,
+          width: double.infinity,
+          child: TGridView(
+            movies: value.popularMovies,
+            height: 220,
           ),
         );
       },

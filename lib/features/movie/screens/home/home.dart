@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Consumer<DiscoverMovieProvider>(
         builder: (context, value, child) {
           if (value.isLoading) {
-            return const TShimmer(height: 340);
+            return const TShimmer(height: 340,radius: 0,);
           }
           return NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {

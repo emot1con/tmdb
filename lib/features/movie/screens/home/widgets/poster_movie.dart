@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/movie/models/movie_models.dart';
-import 'package:github_tmdb/features/movie/screens/home/widgets/popular_movie.dart';
 import 'package:github_tmdb/widgets/container/rounded_container.dart';
 import 'package:github_tmdb/widgets/wrap/genres.dart';
 
