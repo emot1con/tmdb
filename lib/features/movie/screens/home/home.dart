@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
+                            padding: const EdgeInsets.only(bottom: 15),
                             child: SmoothPageIndicator(
                               controller: value.pageController,
                               count: 5,
