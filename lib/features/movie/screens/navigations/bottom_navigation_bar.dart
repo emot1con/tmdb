@@ -15,46 +15,43 @@ class TBottomNavigationBar extends StatelessWidget {
       builder: (context, value, child) {
         return Scaffold(
           body: value.listWidgets.elementAt(value.selectedIndex),
-          bottomNavigationBar: Container(
-            height: 100,
-            padding: const EdgeInsets.fromLTRB(25, 25, 25, 5),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-                bottomLeft: Radius.circular(40),
-                bottomRight: Radius.circular(40),
-              ),
-              child: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                backgroundColor: TColors.colorPrimary.withOpacity(0.8),
-                items: const[
-                  BottomNavigationBarItem(
-                    icon: Icon(Iconsax.home, size: 30),
-                    label: '',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Iconsax.heart, size: 30),
-                    label: '',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Iconsax.document_download, size: 30),
-                    label: '',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Iconsax.user, size: 30),
-                    label: '',
-                  ),
-                ],
-                currentIndex: value.selectedIndex,
-                
-                selectedItemColor: Colors.amber,
-                unselectedItemColor: Colors.white,
-                onTap: (index) {
-                  value.selectIndex(index);
-                },
+          bottomNavigationBar: SafeArea(
+            child: SizedBox(
+              height: 65,
+              child: ClipRRect(
+               
+                child: BottomNavigationBar(
+                  
+                  type: BottomNavigationBarType.fixed,
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  backgroundColor: TColors.colorPrimary.withOpacity(0.8),
+                  items: const[
+                    BottomNavigationBarItem(
+                      icon: Icon(Iconsax.home, size: 30),
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Iconsax.heart, size: 30),
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Iconsax.document_download, size: 30),
+                      label: '',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Iconsax.user, size: 30),
+                      label: '',
+                    ),
+                  ],
+                  currentIndex: value.selectedIndex,
+                  
+                  selectedItemColor: Colors.amber,
+                  unselectedItemColor: Colors.white,
+                  onTap: (index) {
+                    value.selectIndex(index);
+                  },
+                ),
               ),
             ),
           ),

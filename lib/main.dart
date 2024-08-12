@@ -3,7 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/app.dart';
 import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
+import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
+import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
 import 'package:github_tmdb/features/movie/provider/navigations/navigations.dart';
 import 'package:github_tmdb/firebase_options.dart';
 import 'package:github_tmdb/repository/movie/movie_repository.dart';
@@ -38,6 +40,8 @@ class MyApp extends StatelessWidget {
         
         ChangeNotifierProvider(create: (context) => DiscoverMovieProvider()),
         ChangeNotifierProvider(create: (context) => PopularMovieProvider()),
+        ChangeNotifierProvider(create: (context) => NowPlayingMovieProvider()),
+        ChangeNotifierProvider(create: (context) => UpcomingMovieProvider()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

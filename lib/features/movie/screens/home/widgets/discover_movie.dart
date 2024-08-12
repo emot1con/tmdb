@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
+import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
 import 'package:github_tmdb/widgets/wrap/genres.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -10,27 +11,27 @@ import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
 import 'package:github_tmdb/widgets/container/rounded_container.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 
-class TDicoverMovies extends StatefulWidget {
-  const TDicoverMovies({
+class UpcomingMovies extends StatefulWidget {
+  const UpcomingMovies({
     super.key,
   });
 
   @override
-  State<TDicoverMovies> createState() => _TDicoverMoviesState();
+  State<UpcomingMovies> createState() => _UpcomingMoviesState();
 }
 
-class _TDicoverMoviesState extends State<TDicoverMovies> {
+class _UpcomingMoviesState extends State<UpcomingMovies> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<PopularMovieProvider>().getPopularrMovie(context);
+      context.read<UpcomingMovieProvider>().getUpcomingMovie(context);
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<PopularMovieProvider>(
+    return Consumer<UpcomingMovieProvider>(
       builder: (context, value, child) {
         if (value.isLoading) {
           return CarouselSlider(

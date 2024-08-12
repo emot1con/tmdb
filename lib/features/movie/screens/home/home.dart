@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
+import 'package:github_tmdb/features/movie/models/movie_models.dart';
+import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
+import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
 import 'package:github_tmdb/features/movie/screens/home/widgets/discover_movie.dart';
+import 'package:github_tmdb/features/movie/screens/home/widgets/now_playing_movie.dart';
+import 'package:github_tmdb/features/movie/screens/home/widgets/popular_movie.dart';
+import 'package:github_tmdb/features/movie/screens/home/widgets/poster_movie.dart';
 import 'package:github_tmdb/widgets/container/rounded_container.dart';
 import 'package:github_tmdb/widgets/heading/heading.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
@@ -30,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<DiscoverMovieProvider>().getDiscoverMovie(context);
     });
+
     super.initState();
   }
 
@@ -80,72 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     bottom: 35,
                                     left: 15,
                                     right: 20,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        // Poster Section
-                                        SizedBox(
-                                          height: 190,
-                                          width: 130,
-                                          child: Image.network(
-                                            '${ApiConstants.imageUrlw500}${discover.posterPath}',
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 8),
-
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              TRoundedContainer(
-                                                width: 65,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.star,
-                                                      color: Colors.amber,
-                                                    ),
-                                                    const SizedBox(width: 5),
-                                                    Text(
-                                                      discover.voteAverage
-                                                          .toString()
-                                                          .substring(0, 3),
-                                                      style: const TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: TSizes
-                                                            .smallTextSize,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Text(
-                                                discover.title,
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                      TSizes.mediumTextSize,
-                                                ),
-                                                maxLines: 2, // Maksimal 2 baris
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              TGenres(
-                                                genres: discover.getGenres(),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
+                                    child: TPosterMovie(
+                                      movie: discover,
                                     ),
                                   ),
                                 ],
@@ -176,15 +119,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ];
             },
-            body: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: TSizes.defaultSpace, vertical: 10),
-              child: Column(
-                children: [
-                  const THeadingTitle(title: 'Most Popular'),
-                  const TDicoverMovies(),
-                  const SizedBox(height: TSizes.spaceBtwItem),
-                ],
+            body: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: TSizes.defaultSpace,
+                  vertical: 10,
+                ),
+                child: Column(
+                  children: [
+                    const THeadingTitle(title: 'Upcoming'),
+                    const UpcomingMovies(),
+                    const SizedBox(height: TSizes.spaceBtwItem),
+                    const THeadingTitle(title: 'Now Playing'),
+                    NowPlayingMovie(),
+                    const SizedBox(height: TSizes.spaceBtwItem),
+                    const THeadingTitle(title: 'Most Popular'),
+                    PopularMovie(),
+                  ],
+                ),
               ),
             ),
           );
