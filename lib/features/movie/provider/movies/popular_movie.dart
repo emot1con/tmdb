@@ -23,9 +23,8 @@ class PopularMovieProvider with ChangeNotifier {
         print('popular movies api failed');
       },
       (movieList) {
-        final movies = ListMovieModel.fromJson(movieList);
         _popularMovies.clear();
-        _popularMovies.addAll(movies.results);
+        _popularMovies.addAll(movieList.results);
         notifyListeners();
         print('popular movies api success');
       },

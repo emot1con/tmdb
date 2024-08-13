@@ -55,12 +55,15 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
               borderRadius: BorderRadius.circular(12),
               child: Stack(
                 children: [
-                  Image.network(
-                    '${ApiConstants.imageUrlw500}${movie.backdropPath}',
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
+                 movie.backdropPath!.isNotEmpty
+                            ? Image.network(
+                                '${ApiConstants.imageUrlw500}${movie.backdropPath}',
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                              )
+                            : const Center(
+                                child: Icon(Icons.broken_image,size: 40,),
+                              ),
                   Container(
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(

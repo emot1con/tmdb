@@ -28,16 +28,20 @@ class _NowPlayingMovieState extends State<NowPlayingMovie> {
     return Consumer<NowPlayingMovieProvider>(
       builder: (context, value, child) {
         if (value.isLoading) {
-          return ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return const TShimmer(height: 250);
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(width: 10);
-            },
-            itemCount: value.popularMovies.length,
+          return SizedBox(
+            height: 250,
+            width: double.infinity,
+            child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return const TShimmer(height: 250);
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(width: 10);
+              },
+              itemCount: value.popularMovies.length,
+            ),
           );
         }
         return SizedBox(
@@ -56,14 +60,14 @@ class _NowPlayingMovieState extends State<NowPlayingMovie> {
                   child: Stack(
                     children: [
                       Positioned.fill(
-                        child: movie.posterPath.isNotEmpty
+                        child: movie.posterPath != null
                             ? Image.network(
                                 '${ApiConstants.imageUrlw500}${movie.posterPath}',
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                               )
                             : const Center(
-                                child: Icon(Icons.broken_image),
+                                child: Icon(Icons.broken_image, size: 40),
                               ),
                       ),
                     ],

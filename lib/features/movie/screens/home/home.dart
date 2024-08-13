@@ -1,27 +1,17 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
-import 'package:github_tmdb/features/movie/models/movie_models.dart';
-import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dart';
-import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
-import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
-import 'package:github_tmdb/features/movie/screens/home/widgets/discover_movie.dart';
+import 'package:github_tmdb/features/movie/screens/home/widgets/upcoming_movie.dart';
 import 'package:github_tmdb/features/movie/screens/home/widgets/now_playing_movie.dart';
 import 'package:github_tmdb/features/movie/screens/home/widgets/popular_movie.dart';
 import 'package:github_tmdb/features/movie/screens/home/widgets/poster_movie.dart';
-import 'package:github_tmdb/widgets/container/rounded_container.dart';
 import 'package:github_tmdb/widgets/heading/heading.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
-import 'package:github_tmdb/widgets/wrap/genres.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:provider/provider.dart';
-
-import 'package:github_tmdb/widgets/appbar/appbar.dart';
 import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -36,6 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<DiscoverMovieProvider>().getDiscoverMovie(context);
     });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<DiscoverMovieProvider>().automaticallyScrollPageView();
+    });
 
     super.initState();
   }
@@ -46,7 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Consumer<DiscoverMovieProvider>(
         builder: (context, value, child) {
           if (value.isLoading) {
-            return const TShimmer(height: 340,radius: 0,);
+            return const TShimmer(
+              height: 340,
+              radius: 0,
+            );
           }
           return NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {

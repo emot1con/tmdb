@@ -21,10 +21,10 @@ class ListMovieModel {
 }
 
 class MovieModel {
-  final String backdropPath;
+  final String ?backdropPath;
   final List<int> genreIds;
   final int id;
-  final String posterPath;
+  final String? posterPath;
   final DateTime releaseDate;
   final String title;
   final double voteAverage;
@@ -42,10 +42,10 @@ class MovieModel {
   });
 
   factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
-        backdropPath: json["backdrop_path"],
+        backdropPath: json["backdrop_path"] ?? '',
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
-        posterPath: json["poster_path"],
+        posterPath: json["poster_path"] ?? '',
         releaseDate: DateTime.parse(json["release_date"]),
         title: json["title"],
         voteAverage: json["vote_average"]?.toDouble(),

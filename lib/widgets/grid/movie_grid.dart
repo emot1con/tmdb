@@ -3,8 +3,8 @@ import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/features/movie/models/movie_models.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 
-class TGridView extends StatelessWidget {
-  const TGridView({
+class TMovieGrid extends StatelessWidget {
+  const TMovieGrid({
     super.key,
     required this.movies,
     this.isMovie = true,
@@ -38,7 +38,7 @@ class TGridView extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: movie.posterPath.isNotEmpty
+                    child: movie.posterPath != null
                         ? Image.network(
                             '${ApiConstants.imageUrlw500}${movie.posterPath}',
                             width: double.infinity,

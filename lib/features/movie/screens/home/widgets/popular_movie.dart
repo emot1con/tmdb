@@ -46,7 +46,7 @@ class _PopularMovieState extends State<PopularMovie> {
         }
         return SizedBox(
           width: double.infinity,
-          child: TGridView(
+          child: TMovieGrid(
             movies: value.popularMovies,
             height: 220,
           ),
