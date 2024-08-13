@@ -43,7 +43,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => NowPlayingMovieProvider()),
         ChangeNotifierProvider(create: (context) => UpcomingMovieProvider()),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
         home: AppScreen(),
       ),

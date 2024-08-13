@@ -16,11 +16,11 @@ class TShimmer extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius),
       child: Shimmer.fromColors(
-        baseColor: Colors.grey.shade300,
-        highlightColor: Colors.grey.shade200,
+        baseColor: Colors.grey.withOpacity(0.3),
+        highlightColor: Colors.grey.withOpacity(0.5),
         child: Container(
           height: height,
-          decoration: const BoxDecoration(color: Colors.white),
+          decoration: const BoxDecoration(color: Colors.black),
         ),
       ),
     );

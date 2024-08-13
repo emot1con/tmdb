@@ -4,6 +4,7 @@ import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dar
 import 'package:github_tmdb/features/movie/screens/home/home.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class NowPlayingMovie extends StatefulWidget {
   const NowPlayingMovie({
@@ -28,21 +29,7 @@ class _NowPlayingMovieState extends State<NowPlayingMovie> {
     return Consumer<NowPlayingMovieProvider>(
       builder: (context, value, child) {
         if (value.isLoading) {
-          return SizedBox(
-            height: 250,
-            width: double.infinity,
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return const TShimmer(height: 250);
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(width: 10);
-              },
-              itemCount: value.popularMovies.length,
-            ),
-          );
+          return const TShimmer(height: 250);
         }
         return SizedBox(
           height: 250,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:github_tmdb/features/movie/screens/home/paged_movie.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -50,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SliverAppBar(
                   automaticallyImplyLeading: false,
                   floating: true,
-                  expandedHeight: 340,
+                  expandedHeight: 345,
                   flexibleSpace: FlexibleSpaceBar(
                     background: Stack(
                       children: [
@@ -67,15 +68,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Colors.transparent,
-                                          Colors.black
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
+                                  Positioned.fill(
+                                    child: Container(
+                                      decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                          colors: [
+                                            Colors.transparent,
+                                            Colors.black,
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -115,22 +118,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ];
             },
-            body: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
+            body: const SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
+                padding: EdgeInsets.symmetric(
                   horizontal: TSizes.defaultSpace,
                   vertical: 10,
                 ),
                 child: Column(
                   children: [
-                    const THeadingTitle(title: 'Upcoming'),
-                    const UpcomingMovies(),
-                    const SizedBox(height: TSizes.spaceBtwItem),
-                    const THeadingTitle(title: 'Now Playing'),
+                    THeadingTitle(
+                      title: 'Upcoming',
+                      typeMovie: TypeMovie.upcoming,
+                    ),
+                    UpcomingMovies(),
+                    SizedBox(height: TSizes.spaceBtwItem),
+                    THeadingTitle(
+                      title: 'Now Playing',
+                      typeMovie: TypeMovie.nowPlaying,
+                    ),
                     NowPlayingMovie(),
-                    const SizedBox(height: TSizes.spaceBtwItem),
-                    const THeadingTitle(title: 'Most Popular'),
+                    SizedBox(height: TSizes.spaceBtwItem),
+                    THeadingTitle(
+                      title: 'Most Popular',
+                      typeMovie: TypeMovie.popular,
+                    ),
                     PopularMovie(),
                   ],
                 ),

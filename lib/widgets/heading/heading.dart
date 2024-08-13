@@ -8,9 +8,11 @@ class THeadingTitle extends StatelessWidget {
     super.key,
     required this.title,
     this.textButton = true,
+    required this.typeMovie,
   });
   final String title;
   final bool textButton;
+  final TypeMovie typeMovie;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +31,13 @@ class THeadingTitle extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const PagedMovieScreen(),
+                  builder: (context) => PagedMovieScreen(typeMovie: typeMovie,),
                 ),
               );
             },
             child: const Text(
               'See all',
-              style: TextStyle(color: TColors.colorPrimary),
+              style: TextStyle(color: Colors.white),
             ),
           ),
       ],
