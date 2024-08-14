@@ -11,17 +11,19 @@ class TTextFormField extends StatelessWidget {
     required this.label,
     this.onPressed,
     this.password = false,
-    this.icon,
+    this.searchIcon = false,
     this.visiblePassword = false,
     required this.controller,
     required this.validator,
+    this.onTap,
   });
   final String label;
   final void Function()? onPressed;
   final bool password;
   final bool visiblePassword;
-  final Iconsax? icon;
+  final bool searchIcon;
   final TextEditingController controller;
+  final void Function()? onTap;
   final String? Function(String?) validator;
   @override
   Widget build(BuildContext context) {
@@ -34,10 +36,10 @@ class TTextFormField extends StatelessWidget {
             validator: validator,
             obscureText: visiblePassword,
             decoration: InputDecoration(
+              filled: true,
               label: Text(
                 label,
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               suffixIcon: !password
@@ -48,9 +50,10 @@ class TTextFormField extends StatelessWidget {
                           ? const Icon(Iconsax.eye_slash)
                           : const Icon(Iconsax.eye),
                     ),
-              prefixIcon: icon == null
+              prefixIcon: !searchIcon
                   ? const Icon(Iconsax.send_1)
-                  : Icon(icon as IconData),
+                  : const Icon(Iconsax.search_normal),
+              fillColor: const Color.fromARGB(255, 45, 45, 45),
               errorMaxLines: 3,
               prefixIconColor: const Color.fromARGB(255, 148, 145, 145),
               suffixIconColor: const Color.fromARGB(255, 68, 68, 68),
@@ -68,7 +71,7 @@ class TTextFormField extends StatelessWidget {
               focusedBorder: const OutlineInputBorder().copyWith(
                 borderRadius: BorderRadius.circular(10),
                 borderSide:
-                    const BorderSide(width: 1, color: TColors.colorPrimary),
+                    BorderSide(width: 1, color: Colors.grey.withOpacity(0.8)),
               ),
               errorBorder: const OutlineInputBorder().copyWith(
                 borderRadius: BorderRadius.circular(10),

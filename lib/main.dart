@@ -5,6 +5,7 @@ import 'package:github_tmdb/app.dart';
 import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
+import 'package:github_tmdb/features/movie/provider/movies/search_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
 import 'package:github_tmdb/features/movie/provider/navigations/navigations.dart';
 import 'package:github_tmdb/firebase_options.dart';
@@ -35,9 +36,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => LoginProvider()),
         ChangeNotifierProvider(create: (context) => SignUpProvider()),
         ChangeNotifierProvider(create: (context) => NavigationsProvider()),
-
-        ChangeNotifierProvider(create: (context) => MovieRepository()),
         
+        ChangeNotifierProvider(create: (context) => MovieRepository()),
+
+        ChangeNotifierProvider(create: (context) => SearchMovieProvider()),
+
         ChangeNotifierProvider(create: (context) => DiscoverMovieProvider()),
         ChangeNotifierProvider(create: (context) => PopularMovieProvider()),
         ChangeNotifierProvider(create: (context) => NowPlayingMovieProvider()),
@@ -46,7 +49,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
-        home: AppScreen(),
+        home: const AppScreen(),
       ),
     );
   }

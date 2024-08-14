@@ -82,4 +82,22 @@ class MovieRepository with ChangeNotifier {
       return Left(e.message!);
     }
   }
+
+  Future<Either<String, ListMovieModel>> getSearchMovie(
+      {required String query}) async {
+    try {
+      final response = await dio.get(
+        '/search/movie?api_key=${ApiConstants.apiKey}&query=$query',
+      );
+      if (response.statusCode == 200 && response.data != null) {
+        final data = ListMovieModel.fromJson(response.data);
+
+        return Right(data);
+      } else {
+        return const Left('Something went wrong.');
+      }
+    } on DioException catch (e) {
+      return Left(e.message!);
+    }
+  }
 }

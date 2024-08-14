@@ -19,13 +19,12 @@ class ListMovieModel {
         totalResults: json["total_results"],
       );
 }
-
 class MovieModel {
-  final String ?backdropPath;
+  final String? backdropPath;
   final List<int> genreIds;
   final int id;
   final String? posterPath;
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final String title;
   final double voteAverage;
   final int voteCount;
@@ -46,11 +45,22 @@ class MovieModel {
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
         id: json["id"],
         posterPath: json["poster_path"] ?? '',
-        releaseDate: DateTime.parse(json["release_date"]),
+        releaseDate: _parseDate(json["release_date"]),
         title: json["title"],
-        voteAverage: json["vote_average"]?.toDouble(),
-        voteCount: json["vote_count"],
+        voteAverage: json["vote_average"]?.toDouble() ?? 0.0,
+        voteCount: json["vote_count"] ?? 0,
       );
+
+  static DateTime? _parseDate(String? date) {
+    if (date == null || date.isEmpty) {
+      return null;
+    }
+    try {
+      return DateTime.parse(date);
+    } catch (e) {
+      return null; // or handle the exception as needed
+    }
+  }
 
   List<String> getGenres() {
     return genreIds.map((id) => genreMap[id] ?? "Unknown").toList();

@@ -9,15 +9,19 @@ class TMovieGrid extends StatelessWidget {
     required this.movies,
     this.isMovie = true,
     required this.height,
+    this.isSearch = false,
   });
   final List<MovieModel> movies;
   final bool isMovie;
   final double height;
+  final bool isSearch;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: !isSearch
+          ? const NeverScrollableScrollPhysics()
+          : const AlwaysScrollableScrollPhysics(),
       itemCount: movies.length,
       padding: EdgeInsets.zero,
       shrinkWrap: true,
@@ -38,14 +42,14 @@ class TMovieGrid extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned.fill(
-                    child: movie.posterPath != null
+                    child: movie.posterPath!.isNotEmpty
                         ? Image.network(
                             '${ApiConstants.imageUrlw500}${movie.posterPath}',
                             width: double.infinity,
                             fit: BoxFit.cover,
                           )
                         : const Center(
-                            child: Icon(Icons.broken_image),
+                            child: Icon(Icons.broken_image, size: 55,),
                           ),
                   ),
                 ],

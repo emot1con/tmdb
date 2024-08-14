@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:github_tmdb/features/movie/provider/movies/search_movie.dart';
 import 'package:github_tmdb/features/movie/screens/home/paged_movie.dart';
+import 'package:github_tmdb/features/movie/screens/home/search_movie.dart';
+import 'package:github_tmdb/utils/validators/validation.dart';
+import 'package:github_tmdb/widgets/button/icon_button.dart';
+import 'package:github_tmdb/widgets/container/search_container.dart';
+import 'package:github_tmdb/widgets/textform/textform_widget.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -95,6 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ).toList(),
                         ),
+                        // Positioned(
+                        //   top: 40,
+                        //   right: 20,
+                        //   child: TIconButton(
+                        //     onTap: () {},
+                        //     icon: Icons.search,
+                        //   ),
+                        // ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
@@ -118,32 +133,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ];
             },
-            body: const SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
+            body: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Padding(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: TSizes.defaultSpace,
                   vertical: 10,
                 ),
                 child: Column(
                   children: [
-                    THeadingTitle(
-                      title: 'Upcoming',
-                      typeMovie: TypeMovie.upcoming,
-                    ),
-                    UpcomingMovies(),
-                    SizedBox(height: TSizes.spaceBtwItem),
-                    THeadingTitle(
-                      title: 'Now Playing',
-                      typeMovie: TypeMovie.nowPlaying,
-                    ),
-                    NowPlayingMovie(),
-                    SizedBox(height: TSizes.spaceBtwItem),
-                    THeadingTitle(
-                      title: 'Most Popular',
-                      typeMovie: TypeMovie.popular,
-                    ),
-                    PopularMovie(),
+                    const SizedBox(height: TSizes.spaceBtwItem),
+                    TSearchContainer(label: 'Search',onTap: () {
+                      showSearch(context: context, delegate: SearchScreen());
+                    },),
+                    const SizedBox(height: TSizes.spaceBtwItem),
+                    const THeadingTitle(
+                        title: 'Upcoming', typeMovie: TypeMovie.upcoming),
+                    const UpcomingMovies(),
+                    const SizedBox(height: TSizes.spaceBtwItem),
+                    const THeadingTitle(
+                        title: 'Now Playing', typeMovie: TypeMovie.nowPlaying),
+                    const NowPlayingMovie(),
+                    const SizedBox(height: TSizes.spaceBtwItem),
+                    const THeadingTitle(
+                        title: 'Most Popular', typeMovie: TypeMovie.popular),
+                    const PopularMovie(),
                   ],
                 ),
               ),
