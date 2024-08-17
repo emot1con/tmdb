@@ -5,10 +5,10 @@ import 'package:github_tmdb/repository/movie/movie_repository.dart';
 class DetailMovieProvier with ChangeNotifier {
   final MovieRepository _movieRepository = MovieRepository();
   bool _isLoading = false;
-  DetailMovieModel? _detailMovies;
+ DetailMovieModel? _detailMovies;
 
   bool get isLoading => _isLoading;
-  DetailMovieModel get detailMovies => _detailMovies!;
+  DetailMovieModel? get detailMovies => _detailMovies!;
 
   void getDetailMovie(BuildContext context, {required int movieId}) async {
     _isLoading = true;

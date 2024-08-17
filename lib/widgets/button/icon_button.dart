@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class TIconButton extends StatelessWidget {
-  const TIconButton({
+class TIconBackButton extends StatelessWidget {
+  const TIconBackButton({
     super.key,
     required this.onTap,
     this.icon = Iconsax.arrow_left,

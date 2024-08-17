@@ -28,7 +28,7 @@ class ResetPassword extends StatelessWidget {
           Positioned(
             top: 40,
             left: 20,
-            child: TIconButton(
+            child: TIconBackButton(
               onTap: () {
                 Navigator.of(context).pop();
               },

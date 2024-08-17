@@ -19,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
             Positioned(
               top: 60,
               right: 20,
-              child: TIconButton(
+              child: TIconBackButton(
                 onTap: () => Navigator.of(context).pop(),
               ),
             ),

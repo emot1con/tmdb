@@ -97,7 +97,7 @@ class Genre {
 }
 
 class ProductionCompany {
-  final String logoPath;
+  final String? logoPath;
   final String name;
 
   ProductionCompany({
@@ -107,7 +107,7 @@ class ProductionCompany {
 
   factory ProductionCompany.fromJson(Map<String, dynamic> json) =>
       ProductionCompany(
-        logoPath: json["logo_path"],
+        logoPath: json["logo_path"] ?? '',
         name: json["name"],
       );
 }
