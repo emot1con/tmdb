@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/app.dart';
+import 'package:github_tmdb/features/movie/provider/movies/detail_movie_provider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
@@ -45,6 +46,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => PopularMovieProvider()),
         ChangeNotifierProvider(create: (context) => NowPlayingMovieProvider()),
         ChangeNotifierProvider(create: (context) => UpcomingMovieProvider()),
+
+        ChangeNotifierProvider(create: (context) => DetailMovieProvier()),
       ],
       child: MaterialApp(
         theme: ThemeData.dark(),

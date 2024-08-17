@@ -46,7 +46,15 @@ class SearchScreen extends SearchDelegate<MovieModel> {
         }
         return Padding(
           padding: const EdgeInsets.all(TSizes.defaultSpace),
-          child: TMovieGrid(movies: value.popularMovies, height: 150,isSearch: true,),
+          child: value.searchMovies.isNotEmpty
+              ? TMovieGrid(
+                  movies: value.searchMovies,
+                  height: 150,
+                  isSearch: true,
+                )
+              : const Center(
+                  child: Text('No Movie Found'),
+                ),
         );
       },
     );

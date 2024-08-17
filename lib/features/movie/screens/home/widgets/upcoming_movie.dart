@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
+import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
 import 'package:github_tmdb/widgets/wrap/genres.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -50,80 +51,88 @@ class _UpcomingMoviesState extends State<UpcomingMovies> {
           );
         }
         return CarouselSlider(
-          items: value.popularMovies.map((movie) {
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Stack(
-                children: [
-                 movie.backdropPath!.isNotEmpty
-                            ? Image.network(
-                                '${ApiConstants.imageUrlw500}${movie.backdropPath}',
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              )
-                            : const Center(
-                                child: Icon(Icons.broken_image,size: 40,),
-                              ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.transparent, Colors.black],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 10,
-                    left: 10,
-                    child: TRoundedContainer(
-                      width: 65,
-                      color: Colors.black54.withOpacity(0.6),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            movie.voteAverage.toString().substring(0, 3),
-                            style: const TextStyle(
-                              color: Colors.white,
+          items: value.upcomingMovies.map((movie) {
+            return InkWell(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => DetailMovie(movieId: movie.id,),
+              )),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
+                  children: [
+                    movie.backdropPath!.isNotEmpty
+                        ? Image.network(
+                            '${ApiConstants.imageUrlw500}${movie.backdropPath}',
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          )
+                        : const Center(
+                            child: Icon(
+                              Icons.broken_image,
+                              size: 40,
                             ),
                           ),
+                    Container(
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.transparent, Colors.black],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 10,
+                      child: TRoundedContainer(
+                        width: 65,
+                        color: Colors.black54.withOpacity(0.6),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              movie.voteAverage.toString().substring(0, 3),
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      left: 10,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 275,
+                            child: Text(
+                              movie.title,
+                              overflow: TextOverflow.visible,
+                              softWrap: true,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: TSizes.largeTextSize - 5,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: TSizes.spaceBtwItem - 10,
+                          ),
+                          TGenres(genres: movie.getGenres()),
                         ],
                       ),
                     ),
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 275,
-                          child: Text(
-                            movie.title,
-                            overflow: TextOverflow.visible,
-                            softWrap: true,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: TSizes.largeTextSize - 5,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: TSizes.spaceBtwItem - 10,
-                        ),
-                        TGenres(genres: movie.getGenres()),
-                      ],
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           }).toList(),

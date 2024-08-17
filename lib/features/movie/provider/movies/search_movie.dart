@@ -6,11 +6,11 @@ class SearchMovieProvider with ChangeNotifier {
   final MovieRepository _movieRepository = MovieRepository();
 
   bool _isLoading = false;
-  final List<MovieModel> _popularMovies = [];
+  final List<MovieModel> _searchMovies = [];
 
   final TextEditingController controller = TextEditingController();
   bool get isLoading => _isLoading;
-  List<MovieModel> get popularMovies => _popularMovies;
+  List<MovieModel> get searchMovies => _searchMovies;
 
   void getSearchMovie(BuildContext context, String query) async {
     _isLoading = true;
@@ -24,8 +24,8 @@ class SearchMovieProvider with ChangeNotifier {
         print('search movies api failed');
       },
       (movieList) {
-        _popularMovies.clear();
-        _popularMovies.addAll(movieList.results);
+        _searchMovies.clear();
+        _searchMovies.addAll(movieList.results);
         notifyListeners();
         print('search movies api success');
       },

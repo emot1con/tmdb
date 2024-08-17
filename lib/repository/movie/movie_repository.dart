@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:github_tmdb/constant/api_constants.dart';
+import 'package:github_tmdb/features/movie/models/detail_model_movie.dart';
 import 'package:github_tmdb/features/movie/models/movie_models.dart';
 
 class MovieRepository with ChangeNotifier {
@@ -91,6 +92,24 @@ class MovieRepository with ChangeNotifier {
       );
       if (response.statusCode == 200 && response.data != null) {
         final data = ListMovieModel.fromJson(response.data);
+
+        return Right(data);
+      } else {
+        return const Left('Something went wrong.');
+      }
+    } on DioException catch (e) {
+      return Left(e.message!);
+    }
+  }
+
+  Future<Either<String, DetailMovieModel>> getDetailMovie(
+      {required int movieId}) async {
+    try {
+      final response = await dio.get(
+        '/movie/$movieId?api_key=${ApiConstants.apiKey}&page=1',
+      );
+      if (response.statusCode == 200 && response.data != null) {
+        final data = DetailMovieModel.fromJson(response.data);
 
         return Right(data);
       } else {

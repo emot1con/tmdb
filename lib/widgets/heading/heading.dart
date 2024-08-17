@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
-import 'package:github_tmdb/features/movie/screens/home/paged_movie.dart';
+import 'package:github_tmdb/features/movie/screens/paged_movie/paged_movie.dart';
 
 class THeadingTitle extends StatelessWidget {
   const THeadingTitle({

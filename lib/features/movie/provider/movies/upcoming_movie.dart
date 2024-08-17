@@ -7,10 +7,10 @@ class UpcomingMovieProvider with ChangeNotifier {
   final MovieRepository _movieRepository = MovieRepository();
 
   bool _isLoading = false;
-  final List<MovieModel> _popularMovies = [];
+  final List<MovieModel> _upcomingMovies = [];
 
   bool get isLoading => _isLoading;
-  List<MovieModel> get popularMovies => _popularMovies;
+  List<MovieModel> get upcomingMovies => _upcomingMovies;
 
   void getUpcomingMovie(BuildContext context) async {
     _isLoading = true;
@@ -24,8 +24,8 @@ class UpcomingMovieProvider with ChangeNotifier {
         print('upcoming movies api failed');
       },
       (movieList) {
-        _popularMovies.clear();
-        _popularMovies.addAll(movieList.results);
+        _upcomingMovies.clear();
+        _upcomingMovies.addAll(movieList.results);
         notifyListeners();
         print('upcoming movies api success');
       },

@@ -38,7 +38,7 @@ class _NowPlayingMovieState extends State<NowPlayingMovie> {
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              final movie = value.popularMovies[index];
+              final movie = value.nowPlayingMovies[index];
               return SizedBox(
                 height: 220,
                 width: 170,
@@ -65,7 +65,7 @@ class _NowPlayingMovieState extends State<NowPlayingMovie> {
             separatorBuilder: (context, index) {
               return const SizedBox(width: 10);
             },
-            itemCount: value.popularMovies.length,
+            itemCount: value.nowPlayingMovies.length,
           ),
         );
       },
