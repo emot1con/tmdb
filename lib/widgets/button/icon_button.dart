@@ -4,13 +4,11 @@ import 'package:iconsax/iconsax.dart';
 class TIconBackButton extends StatelessWidget {
   const TIconBackButton({
     super.key,
-    required this.onTap,
     this.icon = Iconsax.arrow_left,
     this.padding = 10,
     this.color = Colors.black,
     this.backgroundColor = Colors.white,
   });
-  final void Function() onTap;
   final IconData icon;
   final double padding;
   final Color color;
@@ -25,7 +23,9 @@ class TIconBackButton extends StatelessWidget {
         shape: BoxShape.circle,
       ),
       child: InkWell(
-        onTap: onTap,
+        onTap: () {
+          Navigator.of(context).pop();
+        },
         child: Icon(
           icon,
           color: color,

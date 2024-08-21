@@ -6,6 +6,7 @@ import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/movie/provider/movies/detail_movie_provider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/video_movie_provider.dart';
+import 'package:github_tmdb/features/movie/screens/detail/widgets/video_player.dart';
 import 'package:github_tmdb/features/movie/screens/detail/widgets/youtube_player_widget.dart';
 import 'package:github_tmdb/widgets/button/button_movie.dart';
 import 'package:github_tmdb/widgets/button/button_with_text.dart';
@@ -33,10 +34,6 @@ class _DetailMovieState extends State<DetailMovie> {
             context,
             movieId: widget.movieId,
           );
-      context.read<VideoMovieProvider>().getDetailMovie(
-            context,
-            movieId: widget.movieId,
-          );
     });
     super.initState();
   }
@@ -46,10 +43,10 @@ class _DetailMovieState extends State<DetailMovie> {
     return Scaffold(
       body: Consumer<DetailMovieProvier>(
         builder: (context, value, child) {
-          if (value.isLoading) {
+          final movie = value.detailMovies;
+          if (value.isLoading || value.detailMovies == null) {
             return const TShimmerWaitngScreen();
           }
-          final movie = value.detailMovies;
 
           return NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -98,7 +95,8 @@ class _DetailMovieState extends State<DetailMovie> {
                                     ),
                                   ),
                                   const SizedBox(
-                                      height: TSizes.defaultSpace - 22),
+                                    height: TSizes.defaultSpace - 22,
+                                  ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -128,6 +126,17 @@ class _DetailMovieState extends State<DetailMovie> {
                             ),
                           ),
                         ),
+                        Positioned(
+                          top: 50,
+                          left: 10,
+                          child: TIconBackButton(
+                            color: Colors.white,
+                            padding: 12,
+                            backgroundColor: TColors.colorPrimary.withOpacity(
+                              0.8,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -143,69 +152,8 @@ class _DetailMovieState extends State<DetailMovie> {
                     padding: const EdgeInsets.all(5),
                     child: Column(
                       children: [
-                        Consumer<VideoMovieProvider>(
-                          builder: (context, value, child) {
-                            return SizedBox(
-                              height: 180,
-                              width: double.infinity,
-                              child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  final video =
-                                      value.videoMovies!.results[index];
-
-                                  return Stack(
-                                    children: [
-                                      SizedBox(
-                                        width: 230,
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: Image.network(
-                                            YoutubePlayer.getThumbnail(
-                                                videoId: video.key),
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned.fill(
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  Colors.black.withOpacity(0.6),
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: IconButton(
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        YoutubePlayerWidget(
-                                                      youtubeKey: video.key,
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                Icons.play_arrow,
-                                                size: 35,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                },
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(width: 10),
-                                itemCount: value.videoMovies!.results.length,
-                              ),
-                            );
-                          },
+                        VideoPlayer(
+                          movieId: widget.movieId,
                         ),
                       ],
                     ),

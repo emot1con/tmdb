@@ -41,7 +41,6 @@ class _PagedMovieScreenState extends State<PagedMovieScreen> {
                 top: 5,
                 left: 5,
                 child: TIconBackButton(
-                  onTap: () => Navigator.of(context).pop(),
                   backgroundColor: TColors.colorPrimary,
                   color: Colors.white,
                   padding: 12,

@@ -29,9 +29,7 @@ class ResetPassword extends StatelessWidget {
             top: 40,
             left: 20,
             child: TIconBackButton(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
+             
               color: Colors.white,
               backgroundColor: TColors.colorPrimary,
             ),
