@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/features/movie/models/detail_model_movie.dart';
+import 'package:github_tmdb/features/movie/models/video_movie_model.dart';
 import 'package:github_tmdb/repository/movie/movie_repository.dart';
 
-class DetailMovieProvier with ChangeNotifier {
+class VideoMovieProvider with ChangeNotifier{
   final MovieRepository _movieRepository = MovieRepository();
   bool _isLoading = false;
-  DetailMovieModel? _detailMovies;
+  VideoMovieModel? _videoMovies;
 
   bool get isLoading => _isLoading;
-  DetailMovieModel? get detailMovies => _detailMovies;
+  VideoMovieModel? get videoMovies => _videoMovies;
 
   void getDetailMovie(BuildContext context, {required int movieId}) async {
     _isLoading = true;
     notifyListeners();
-    final movies = await _movieRepository.getDetailMovie(movieId: movieId);
+    final movies = await _movieRepository.getVideoMovie(movieId: movieId);
     movies.fold(
       (error) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -22,7 +22,7 @@ class DetailMovieProvier with ChangeNotifier {
         print('detail movies api failed');
       },
       (detail) {
-        _detailMovies = detail;
+        _videoMovies = detail;
         notifyListeners();
         print('detail movies api success');
       },

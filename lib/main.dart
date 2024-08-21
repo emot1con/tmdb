@@ -8,6 +8,7 @@ import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dar
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/search_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
+import 'package:github_tmdb/features/movie/provider/movies/video_movie_provider.dart';
 import 'package:github_tmdb/features/movie/provider/navigations/navigations.dart';
 import 'package:github_tmdb/firebase_options.dart';
 import 'package:github_tmdb/repository/movie/movie_repository.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => UpcomingMovieProvider()),
 
         ChangeNotifierProvider(create: (context) => DetailMovieProvier()),
+        ChangeNotifierProvider(create: (context) => VideoMovieProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData.dark(),
