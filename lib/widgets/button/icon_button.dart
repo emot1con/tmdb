@@ -8,9 +8,11 @@ class TIconBackButton extends StatelessWidget {
     this.padding = 10,
     this.color = Colors.black,
     this.backgroundColor = Colors.white,
+    this.size,
   });
   final IconData icon;
   final double padding;
+  final double? size;
   final Color color;
   final Color backgroundColor;
 
@@ -28,6 +30,7 @@ class TIconBackButton extends StatelessWidget {
         },
         child: Icon(
           icon,
+          size: size,
           color: color,
         ),
       ),
