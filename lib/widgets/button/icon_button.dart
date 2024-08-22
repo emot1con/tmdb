@@ -29,6 +29,7 @@ class TIconBackButton extends StatelessWidget {
           Navigator.of(context).pop();
         },
         child: Icon(
+          
           icon,
           size: size,
           color: color,

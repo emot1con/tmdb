@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 
-class TDetailSubTitle extends StatelessWidget {
-  const TDetailSubTitle({
+class TDetailTitle extends StatelessWidget {
+  const TDetailTitle({
     super.key,
-    required this.subTitle,
+    required this.title,
+    this.titleSize = 13,
   });
-  final String subTitle;
+  final String title;
+  final double ?titleSize;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      subTitle,
-      style: const TextStyle(
+      title,
+      style: TextStyle(
         color: Colors.white54,
-        fontSize: 13,
+        fontSize: titleSize,
         fontWeight: FontWeight.bold,
       ),
     );
