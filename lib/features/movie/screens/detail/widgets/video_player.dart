@@ -40,7 +40,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 final video = value.videoMovies!.results[index];
-
                 return Stack(
                   children: [
                     SizedBox(

@@ -29,26 +29,26 @@ class _PagedMovieScreenState extends State<PagedMovieScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(
-            TSizes.defaultSpace,
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(
+              TSizes.defaultSpace,
+            ),
+            child: PagedMovie(typeMovie: widget.typeMovie),
           ),
-          child: Stack(
-            children: [
-              PagedMovie(typeMovie: widget.typeMovie),
-              Positioned(
-                top: 5,
-                left: 5,
-                child: TIconBackButton(
-                  backgroundColor: TColors.colorPrimary,
-                  color: Colors.white,
-                  padding: 12,
-                ),
-              ),
-            ],
+          const Positioned(
+            top: 45,
+            left: 15,
+            child: TIconBackButton(
+              color: Colors.white54,
+              size: 40,
+              padding: 2,
+              icon: Icons.keyboard_arrow_left,
+              backgroundColor: TColors.colorPrimary,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

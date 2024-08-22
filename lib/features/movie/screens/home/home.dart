@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/features/movie/provider/movies/search_movie.dart';
+import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
 import 'package:github_tmdb/features/movie/screens/paged_movie/paged_movie.dart';
 import 'package:github_tmdb/features/movie/screens/home/search_movie.dart';
 import 'package:github_tmdb/utils/validators/validation.dart';
@@ -67,37 +68,47 @@ class _HomeScreenState extends State<HomeScreen> {
                           onPageChanged: value.updatePageIndicator,
                           children: value.discoverMovies.map(
                             (discover) {
-                              return Stack(
-                                children: [
-                                  Positioned.fill(
-                                    child: Image.network(
-                                      '${ApiConstants.imageUrlOriginal}${discover.backdropPath}',
-                                      fit: BoxFit.cover,
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailMovie(movieId: discover.id),
                                     ),
-                                  ),
-                                  Positioned.fill(
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Colors.transparent,
-                                            Colors.black,
-                                          ],
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
+                                  );
+                                },
+                                child: Stack(
+                                  children: [
+                                    Positioned.fill(
+                                      child: Image.network(
+                                        '${ApiConstants.imageUrlOriginal}${discover.backdropPath}',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Positioned.fill(
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.transparent,
+                                              Colors.black,
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    bottom: 35,
-                                    left: 15,
-                                    right: 20,
-                                    child: TPosterMovie(
-                                      movie: discover,
+                                    Positioned(
+                                      bottom: 35,
+                                      left: 15,
+                                      right: 20,
+                                      child: TPosterMovie(
+                                        movie: discover,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             },
                           ).toList(),
@@ -143,9 +154,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: TSizes.spaceBtwItem),
-                    TSearchContainer(label: 'Search',onTap: () {
-                      showSearch(context: context, delegate: SearchScreen());
-                    },),
+                    TSearchContainer(
+                      label: 'Search',
+                      onTap: () {
+                        showSearch(context: context, delegate: SearchScreen());
+                      },
+                    ),
                     const SizedBox(height: TSizes.spaceBtwItem),
                     const THeadingTitle(
                         title: 'Upcoming', typeMovie: TypeMovie.upcoming),

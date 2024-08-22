@@ -22,6 +22,7 @@ import 'package:github_tmdb/widgets/text/detail_subtitle.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailMovie extends StatefulWidget {
@@ -40,6 +41,10 @@ class _DetailMovieState extends State<DetailMovie> {
             context,
             movieId: widget.movieId,
           );
+      context.read<VideoMovieProvider>().getVideoMovie(
+            context,
+            movieId: widget.movieId,
+          );
     });
     super.initState();
   }
@@ -47,7 +52,7 @@ class _DetailMovieState extends State<DetailMovie> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         body: Consumer<DetailMovieProvier>(
           builder: (context, value, child) {
@@ -109,20 +114,25 @@ class _DetailMovieState extends State<DetailMovie> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text('${movie.releaseDate.year} ● '),
-                                        Wrap(
-                                          children: List.generate(
-                                            movie.genres.length,
-                                            (index) {
-                                              return Text(
-                                                movie.genres[index].name +
-                                                    (index <
-                                                            movie.genres
-                                                                    .length -
-                                                                1
-                                                        ? ', '
-                                                        : ''),
-                                              );
-                                            },
+                                        Flexible(
+                                          child: Wrap(
+                                            children: List.generate(
+                                              movie.genres.length,
+                                              (index) {
+                                                return Text(
+                                                  movie.genres[index].name +
+                                                      (index <
+                                                              movie.genres
+                                                                      .length -
+                                                                  1
+                                                          ? ', '
+                                                          : ''),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  softWrap: true,
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ),
                                         Text(' ● ${movie.runtime}m'),
@@ -134,13 +144,14 @@ class _DetailMovieState extends State<DetailMovie> {
                             ),
                           ),
                           const Positioned(
-                            top: 40,
-                            left: 10,
+                            top: 45,
+                            left: 15,
                             child: TIconBackButton(
                               color: Colors.white54,
-                              size: 45,
-                              icon: Iconsax.arrow_circle_left,
-                              backgroundColor: Colors.transparent,
+                              size: 40,
+                              padding: 2,
+                              icon: Icons.keyboard_arrow_left,
+                              backgroundColor: TColors.colorPrimary,
                             ),
                           ),
                         ],
@@ -165,21 +176,31 @@ class _DetailMovieState extends State<DetailMovie> {
                       ),
                       child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TButtonMovie(
-                                title: 'Watch Trailer',
-                                icon: Icons.play_arrow_rounded,
-                                onTap: () {},
-                              ),
-                              TButtonMovie(
-                                title: 'Download',
-                                icon: Icons.download,
-                                onTap: () {},
-                                color: const Color.fromARGB(136, 52, 50, 50),
-                              ),
-                            ],
+                          Consumer<VideoMovieProvider>(
+                            builder: (context, value, child) => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TButtonMovie(
+                                  title: 'Watch Trailer',
+                                  icon: Icons.play_arrow_rounded,
+                                  onTap: () async {
+                                    if (!await launchUrl(
+                                      Uri.parse(
+                                          'https://www.youtube.com/watch?v=${value.videoMovies!.results[1].key}'),
+                                    )) {
+                                      throw Exception(
+                                          'Could not launch ${value.videoMovies!.results[1]}');
+                                    }
+                                  },
+                                ),
+                                TButtonMovie(
+                                  title: 'Download',
+                                  icon: Icons.download,
+                                  onTap: () {},
+                                  color: const Color.fromARGB(136, 52, 50, 50),
+                                ),
+                              ],
+                            ),
                           ),
                           const SizedBox(height: TSizes.spaceBtwItem),
                           ReadMoreText(
@@ -218,11 +239,6 @@ class _DetailMovieState extends State<DetailMovie> {
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          'About',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
                       ],
                     ),
                     SizedBox(
@@ -232,7 +248,6 @@ class _DetailMovieState extends State<DetailMovie> {
                         children: [
                           DetailAboutSection(movie: movie),
                           DetailProductionSection(movie: movie),
-                          Center(child: Text('')),
                         ],
                       ),
                     ),
@@ -246,4 +261,3 @@ class _DetailMovieState extends State<DetailMovie> {
     );
   }
 }
-

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/features/movie/models/movie_models.dart';
+import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 
 class TMovieGrid extends StatelessWidget {
@@ -34,25 +35,37 @@ class TMovieGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         final movie = movies[index];
         if (isMovie) {
-          return SizedBox(
-            height: height,
-            width: 170,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: movie.posterPath!.isNotEmpty
-                        ? Image.network(
-                            '${ApiConstants.imageUrlw500}${movie.posterPath}',
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          )
-                        : const Center(
-                            child: Icon(Icons.broken_image, size: 55,),
-                          ),
-                  ),
-                ],
+          return InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => DetailMovie(movieId: movie.id),
+                ),
+              );
+            },
+            child: SizedBox(
+              height: height,
+              width: 170,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: movie.posterPath!.isNotEmpty
+                          ? Image.network(
+                              '${ApiConstants.imageUrlw500}${movie.posterPath}',
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            )
+                          : const Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                size: 55,
+                              ),
+                            ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

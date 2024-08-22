@@ -40,12 +40,12 @@ class DetailProductionSection extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: TSizes.spaceBtwItem + 8),
+          const SizedBox(height: TSizes.spaceBtwSection),
           const TDetailTitle(
             title: 'Production Companies',
             titleSize: 16,
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: 10),
           SizedBox(
             child: GridView.builder(
               physics:

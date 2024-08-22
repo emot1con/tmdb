@@ -4,6 +4,7 @@ import 'package:github_tmdb/features/movie/models/movie_models.dart';
 import 'package:github_tmdb/features/movie/provider/movies/now_playing_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
+import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
 import 'package:github_tmdb/features/movie/screens/paged_movie/paged_movie.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
@@ -58,28 +59,37 @@ class _PagedMovieState extends State<PagedMovie> {
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<MovieModel>(
         itemBuilder: (context, item, index) {
-          return SizedBox(
-            height: 170,
-            width: 170,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    child: item.posterPath!.isNotEmpty
-                        ? Image.network(
-                            '${ApiConstants.imageUrlw500}${item.posterPath}',
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          )
-                        : const Center(
-                            child: Icon(
-                              Icons.broken_image,
-                              size: 40,
+          return InkWell(
+              onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DetailMovie(movieId: item.id),
+                    ),
+                  );
+                },
+            child: SizedBox(
+              height: 170,
+              width: 170,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: item.posterPath!.isNotEmpty
+                          ? Image.network(
+                              '${ApiConstants.imageUrlw500}${item.posterPath}',
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            )
+                          : const Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                size: 40,
+                              ),
                             ),
-                          ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           );
