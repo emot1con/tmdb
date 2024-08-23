@@ -147,10 +147,24 @@ class MovieRepository with ChangeNotifier {
     required String poster,
   }) async {
     try {
-      await _db.collection('Favorite Movie').doc(movieId.toString()).set({
-        'movieId': movieId,
-        'poster': poster,
-      });
+      final favoriteMovies =
+          await _db.collection('Favorite Movie').doc(movieId.toString()).get();
+      if (!favoriteMovies.exists) {
+        await _db.collection('Favorite Movie').doc(movieId.toString()).set({
+          'movieId': movieId,
+          'poster': poster,
+        });
+        return;
+      }
+      deleteFavoriteMovie(movieId);
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> deleteFavoriteMovie(int movieId) async {
+    try {
+      await _db.collection('Favorite Movie').doc(movieId.toString()).delete();
     } catch (e) {
       throw e.toString();
     }
@@ -166,4 +180,6 @@ class MovieRepository with ChangeNotifier {
       throw e.toString();
     }
   }
+
+
 }

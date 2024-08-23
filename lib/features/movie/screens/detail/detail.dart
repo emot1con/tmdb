@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/features/movie/provider/favorite/favorite_movie_provider.dart';
 import 'package:provider/provider.dart';
@@ -153,14 +154,45 @@ class _DetailMovieState extends State<DetailMovie> {
                                 color: TColors.colorPrimary,
                                 shape: BoxShape.circle,
                               ),
-                              child: IconButton(
-                                onPressed: () {
-                                  FavoriteMovieProvider().setFavoriteMovies(
+                              padding: const EdgeInsets.all(10),
+                              child: InkWell(
+                                onTap: () {
+                                  final favorite =
+                                      Provider.of<FavoriteMovieProvider>(
+                                    context,
+                                    listen: false,
+                                  );
+                                  favorite.setFavoriteMovies(
                                     movie.id,
                                     movie.posterPath,
                                   );
+                                  favorite.isFavorites(movie.id);
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  if (favorite.isFavorite) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Movie added to your favorites'),
+                                      ),
+                                    );
+                                    return;
+                                  }
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Movie removed from your favorites'),
+                                    ),
+                                  );
                                 },
-                                icon: const Icon(Icons.star),
+                                child: Icon(
+                                  Icons.star,
+                                  color: Provider.of<FavoriteMovieProvider>(
+                                              context)
+                                          .isFavorite
+                                      ? Colors.white
+                                      : Colors.amber,
+                                ),
                               ),
                             ),
                           )

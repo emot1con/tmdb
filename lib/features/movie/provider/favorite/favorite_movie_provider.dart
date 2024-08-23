@@ -7,8 +7,10 @@ class FavoriteMovieProvider with ChangeNotifier {
   final MovieRepository _movieRepository = MovieRepository();
   List<FavoriteMovieModel>? _favoriteMovies;
   bool _isLoading = false;
+  bool isFavorite = false;
 
   bool get isLoading => _isLoading;
+
   List<FavoriteMovieModel>? get favoriteMovies => _favoriteMovies;
 
   void setFavoriteMovies(int movieId, String poster) async {
@@ -34,6 +36,20 @@ class FavoriteMovieProvider with ChangeNotifier {
     } finally {
       _isLoading = false;
       notifyListeners();
+    }
+  }
+
+  void isFavorites(int movieId) async {
+    try {
+      final favorite = await FirebaseFirestore.instance
+          .collection('Favorite Movie')
+          .doc(movieId.toString())
+          .get();
+      isFavorite = favorite.exists;
+      notifyListeners();
+      print('$isFavorite provider');
+    } catch (e) {
+      throw e.toString();
     }
   }
 }
