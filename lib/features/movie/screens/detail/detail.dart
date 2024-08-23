@@ -1,29 +1,20 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:github_tmdb/features/movie/provider/favorite/favorite_movie_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:readmore/readmore.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';
-import 'package:github_tmdb/features/movie/models/detail_model_movie.dart';
 import 'package:github_tmdb/features/movie/provider/movies/detail_movie_provider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/video_movie_provider.dart';
 import 'package:github_tmdb/features/movie/screens/detail/widgets/detail_about_section.dart';
 import 'package:github_tmdb/features/movie/screens/detail/widgets/detail_production_section.dart';
 import 'package:github_tmdb/features/movie/screens/detail/widgets/video_player.dart';
-import 'package:github_tmdb/features/movie/screens/detail/widgets/youtube_player_widget.dart';
 import 'package:github_tmdb/widgets/button/button_movie.dart';
-import 'package:github_tmdb/widgets/button/button_with_text.dart';
 import 'package:github_tmdb/widgets/button/icon_button.dart';
-import 'package:github_tmdb/widgets/grid/movie_grid.dart';
-import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_waiting.dart';
-import 'package:github_tmdb/widgets/text/detail_about.dart';
-import 'package:github_tmdb/widgets/text/detail_subtitle.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:provider/provider.dart';
-import 'package:readmore/readmore.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailMovie extends StatefulWidget {
   const DetailMovie({super.key, required this.movieId});
@@ -154,6 +145,25 @@ class _DetailMovieState extends State<DetailMovie> {
                               backgroundColor: TColors.colorPrimary,
                             ),
                           ),
+                          Positioned(
+                            top: 45,
+                            right: 15,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: TColors.colorPrimary,
+                                shape: BoxShape.circle,
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  FavoriteMovieProvider().setFavoriteMovies(
+                                    movie.id,
+                                    movie.posterPath,
+                                  );
+                                },
+                                icon: const Icon(Icons.star),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),

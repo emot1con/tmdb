@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
@@ -8,6 +9,7 @@ import 'package:github_tmdb/features/movie/models/movie_models.dart';
 import 'package:github_tmdb/features/movie/models/video_movie_model.dart';
 
 class MovieRepository with ChangeNotifier {
+  final _db = FirebaseFirestore.instance;
   final Dio dio = Dio(
     BaseOptions(
       baseUrl: ApiConstants.baseUrl,
@@ -120,8 +122,10 @@ class MovieRepository with ChangeNotifier {
       return Left(e.message!);
     }
   }
-  Future<Either<String, VideoMovieModel>> getVideoMovie(
-      {required int movieId}) async {
+
+  Future<Either<String, VideoMovieModel>> getVideoMovie({
+    required int movieId,
+  }) async {
     try {
       final response = await dio.get(
         '/movie/$movieId/videos?api_key=${ApiConstants.apiKey}',
@@ -135,6 +139,31 @@ class MovieRepository with ChangeNotifier {
       }
     } on DioException catch (e) {
       return Left(e.message!);
+    }
+  }
+
+  Future<void> setFavoriteMovies({
+    required int movieId,
+    required String poster,
+  }) async {
+    try {
+      await _db.collection('Favorite Movie').doc(movieId.toString()).set({
+        'movieId': movieId,
+        'poster': poster,
+      });
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<List<FavoriteMovieModel>> getAllFavoriteMovies() async {
+    try {
+      final snapshot = await _db.collection('Favorite Movie').get();
+      return snapshot.docs
+          .map((doc) => FavoriteMovieModel.fromJson(doc))
+          .toList();
+    } catch (e) {
+      throw e.toString();
     }
   }
 }

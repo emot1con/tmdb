@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ListMovieModel {
   final int page;
   final List<MovieModel> results;
@@ -19,6 +21,7 @@ class ListMovieModel {
         totalResults: json["total_results"],
       );
 }
+
 class MovieModel {
   final String? backdropPath;
   final List<int> genreIds;
@@ -88,3 +91,31 @@ const Map<int, String> genreMap = {
   10752: "War",
   37: "Western",
 };
+
+class ListFavoriteModel {
+  ListFavoriteModel({required this.listFavoriteModel});
+
+  final List<FavoriteMovieModel> listFavoriteModel;
+
+  factory ListFavoriteModel.fromJson(
+          QuerySnapshot<FavoriteMovieModel> snapshot) =>
+      ListFavoriteModel(
+        listFavoriteModel: List<FavoriteMovieModel>.from(
+          snapshot.docs.map(
+            (x) => FavoriteMovieModel.fromJson(x),
+          ),
+        ),
+      );
+}
+
+class FavoriteMovieModel {
+  FavoriteMovieModel({required this.movieId, required this.poster});
+  final int movieId;
+  final String poster;
+
+  factory FavoriteMovieModel.fromJson(DocumentSnapshot snapshot) =>
+      FavoriteMovieModel(
+        movieId: snapshot['movieId'],
+        poster: snapshot['poster'],
+      );
+}

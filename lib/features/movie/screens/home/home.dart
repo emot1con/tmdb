@@ -113,14 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ).toList(),
                         ),
-                        // Positioned(
-                        //   top: 40,
-                        //   right: 20,
-                        //   child: TIconButton(
-                        //     onTap: () {},
-                        //     icon: Icons.search,
-                        //   ),
-                        // ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: Padding(
@@ -181,47 +173,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+  
 }
-
-
-
-
-// Consumer<PopularMovieProvider>(
-//                 builder: (context, value, child) {
-//                   if (value.isLoading) {
-//                     return TShimmer();
-//                   }
-//                   return SizedBox(
-//                     height: 250,
-//                     width: double.infinity,
-//                     child: ListView.separated(
-//                       shrinkWrap: true,
-//                       scrollDirection: Axis.horizontal,
-//                       itemBuilder: (context, index) {
-//                         final movie = value.popularMovies[index];
-//                         return SizedBox(
-//                           height: 220,
-//                           width: 170,
-//                           child: ClipRRect(
-//                             borderRadius: BorderRadius.circular(12),
-//                             child: Stack(
-//                               children: [
-//                                 Image.network(
-//                                   '${ApiConstants.imageUrlw500}${movie.posterPath}',
-//                                   width: double.infinity,
-//                                   fit: BoxFit.cover,
-//                                 ),
-                                
-//                               ],
-//                             ),
-//                           ),
-//                         );
-//                       },
-//                       separatorBuilder: (context, index) {
-//                         return const SizedBox(width: 10);
-//                       },
-//                       itemCount: value.popularMovies.length,
-//                     ),
-//                   );
-//                 },
-//               )

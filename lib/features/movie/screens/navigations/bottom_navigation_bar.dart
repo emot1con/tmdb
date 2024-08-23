@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/features/movie/provider/navigations/navigations.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class TBottomNavigationBar extends StatelessWidget {
@@ -19,33 +18,26 @@ class TBottomNavigationBar extends StatelessWidget {
             child: SizedBox(
               height: 65,
               child: ClipRRect(
-               
                 child: BottomNavigationBar(
-                  
                   type: BottomNavigationBarType.fixed,
                   showSelectedLabels: false,
                   showUnselectedLabels: false,
                   backgroundColor: TColors.colorPrimary.withOpacity(0.8),
-                  items: const[
+                  items: const [
                     BottomNavigationBarItem(
-                      icon: Icon(Iconsax.home, size: 30),
+                      icon: Icon(Icons.home, size: 30),
                       label: '',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Iconsax.heart, size: 30),
+                      icon: Icon(Icons.star, size: 30),
                       label: '',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Iconsax.document_download, size: 30),
-                      label: '',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Iconsax.user, size: 30),
+                      icon: Icon(Icons.person, size: 30),
                       label: '',
                     ),
                   ],
                   currentIndex: value.selectedIndex,
-                  
                   selectedItemColor: Colors.amber,
                   unselectedItemColor: Colors.white,
                   onTap: (index) {
