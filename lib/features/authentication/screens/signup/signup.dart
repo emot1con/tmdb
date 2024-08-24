@@ -16,11 +16,10 @@ class SignUpScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Positioned(
+            const Positioned(
               top: 60,
               right: 20,
-              child: TIconBackButton(
-              ),
+              child: TIconBackButton(),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +56,7 @@ class SignUpScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height -
                       200, // Subtract the height of the first container
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 46, 46, 46),
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50),

@@ -226,7 +226,7 @@ class _DetailMovieState extends State<DetailMovie> {
                             builder: (context, value, child) => Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TButtonMovie(
+                                TButton(
                                   title: 'Watch Trailer',
                                   icon: Icons.play_arrow_rounded,
                                   onTap: () async {
@@ -239,7 +239,7 @@ class _DetailMovieState extends State<DetailMovie> {
                                     }
                                   },
                                 ),
-                                TButtonMovie(
+                                TButton(
                                   title: 'Download',
                                   icon: Icons.download,
                                   onTap: () {},

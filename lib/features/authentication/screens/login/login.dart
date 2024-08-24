@@ -46,7 +46,6 @@ class LoginScreen extends StatelessWidget {
                     Text(
                       'Watch anywhere anytime',
                       style: TextStyle(
-                        color: Colors.black,
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),

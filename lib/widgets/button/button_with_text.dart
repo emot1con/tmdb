@@ -20,7 +20,7 @@ class TButtonWithText extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(5.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: const Color.fromARGB(255, 62, 61, 61),
           borderRadius: radius != null ? BorderRadius.circular(radius!) : null,
           boxShadow: const [
             BoxShadow(color: Colors.black, blurRadius: 0.2),
@@ -38,7 +38,7 @@ class TButtonWithText extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:github_tmdb/features/authentication/models/user_model.dart';
 import 'package:github_tmdb/features/authentication/screens/login/login.dart';
 import 'package:github_tmdb/features/movie/screens/home/home.dart';
 import 'package:github_tmdb/features/movie/screens/navigations/bottom_navigation_bar.dart';
@@ -50,18 +52,6 @@ class AuthenticationRepository with ChangeNotifier {
     }
   }
 
-  Future<void> logout() async {
-    try {
-      await _auth.signOut();
-    } on FirebaseAuthException catch (e) {
-      throw e.toString();
-    } on FirebaseException catch (e) {
-      throw e.toString();
-    } catch (e) {
-      throw e.toString();
-    }
-  }
-
   Future<void> loginWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(
@@ -86,6 +76,50 @@ class AuthenticationRepository with ChangeNotifier {
         email: email,
         password: password,
       );
+    } on FirebaseAuthException catch (e) {
+      throw e.toString();
+    } on FirebaseException catch (e) {
+      throw e.toString();
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<UserModel> getUser() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(_auth.currentUser!.uid)
+          .get();
+      return UserModel.fromJson(snapshot);
+    } on FirebaseAuthException catch (e) {
+      throw e.toString();
+    } on FirebaseException catch (e) {
+      throw e.toString();
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> signoutAccount() async {
+    try {
+      await _auth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw e.toString();
+    } on FirebaseException catch (e) {
+      throw e.toString();
+    } catch (e) {
+      throw e.toString();
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    try {
+      await _auth.currentUser!.delete();
+      await FirebaseFirestore.instance
+          .collection("Users")
+          .doc(_auth.currentUser!.uid)
+          .delete();
     } on FirebaseAuthException catch (e) {
       throw e.toString();
     } on FirebaseException catch (e) {

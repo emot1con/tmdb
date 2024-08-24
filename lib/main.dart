@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/app.dart';
+import 'package:github_tmdb/features/authentication/provider/signout/signout_provider.dart';
 import 'package:github_tmdb/features/movie/provider/favorite/favorite_movie_provider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/detail_movie_provider.dart';
 import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => LoginProvider()),
         ChangeNotifierProvider(create: (context) => SignUpProvider()),
+        ChangeNotifierProvider(create: (context) => SignOutProvider()),
         ChangeNotifierProvider(create: (context) => NavigationsProvider()),
         
         ChangeNotifierProvider(create: (context) => MovieRepository()),

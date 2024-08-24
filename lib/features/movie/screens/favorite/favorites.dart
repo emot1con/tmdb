@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/constant/api_constants.dart';
-import 'package:github_tmdb/constant/colors.dart';
+import 'package:provider/provider.dart';
+
 import 'package:github_tmdb/constant/sizes.dart';
-import 'package:github_tmdb/features/movie/models/movie_models.dart';
 import 'package:github_tmdb/features/movie/provider/favorite/favorite_movie_provider.dart';
 import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
 import 'package:github_tmdb/features/movie/screens/favorite/widgets/favorite_item_widget.dart';
-import 'package:github_tmdb/widgets/grid/movie_grid.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
-import 'package:provider/provider.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -28,14 +25,31 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Favorite'),
+        automaticallyImplyLeading: false,
+      ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(TSizes.defaultSpace - 10,
-            TSizes.defaultSpace - 10, TSizes.defaultSpace - 10, 0),
+        padding: const EdgeInsets.fromLTRB(
+            TSizes.defaultSpace - 10, 2, TSizes.defaultSpace - 10, 2),
         child: Consumer<FavoriteMovieProvider>(
           builder: (context, provider, child) {
             if (provider.favoriteMovies == null) {
-              return const Center(
-                child: Text("There's No Favorite Movie Here"),
+              print('favorite is null');
+              return ListView.separated(
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                    child: const TShimmer(
+                      height: 180,
+                    ),
+                  );
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 10,
+                ),
+                itemCount: 5,
               );
             }
             if (provider.favoriteMovies!.isEmpty) {

@@ -50,7 +50,7 @@ class LoginProvider with ChangeNotifier {
 
   void logout(BuildContext context) async {
     try {
-      await authenticationRepository.logout();
+      await authenticationRepository.signoutAccount();
       if (context.mounted) {
         authenticationRepository.screenRedirect(context);
       }

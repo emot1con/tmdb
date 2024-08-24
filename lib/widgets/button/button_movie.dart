@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/constant/colors.dart';
 
-class TButtonMovie extends StatelessWidget {
-  const TButtonMovie({
+class TButton extends StatelessWidget {
+  const TButton({
     super.key,
     required this.title,
     this.icon = Icons.play_arrow_rounded,
@@ -36,7 +36,7 @@ class TButtonMovie extends StatelessWidget {
           children: [
             Icon(icon),
             const SizedBox(width: 2),
-            Text(title),
+            Text(title,style: const TextStyle(fontWeight: FontWeight.bold),),
           ],
         ),
       ),

@@ -47,8 +47,8 @@ class TTextFormField extends StatelessWidget {
                   : IconButton(
                       onPressed: onPressed,
                       icon: visiblePassword
-                          ? const Icon(Iconsax.eye_slash)
-                          : const Icon(Iconsax.eye),
+                          ? const Icon(Iconsax.eye_slash,color: Colors.white,)
+                          : const Icon(Iconsax.eye,color: Colors.white,),
                     ),
               prefixIcon: !searchIcon
                   ? const Icon(Iconsax.send_1)

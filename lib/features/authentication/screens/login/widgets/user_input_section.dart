@@ -67,7 +67,6 @@ class UserInputSection extends StatelessWidget {
                     ),
                     const Text(
                       'Remember me',
-                      style: TextStyle(color: Colors.black),
                     ),
                   ],
                 ),
@@ -82,8 +81,7 @@ class UserInputSection extends StatelessWidget {
                   child: const Text(
                     'Forget password ?',
                     style: TextStyle(
-                        color: TColors.colorPrimary,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold,color: TColors.colorPrimary),
                   ),
                 ),
               ],
