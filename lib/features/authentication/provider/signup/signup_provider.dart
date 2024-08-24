@@ -11,7 +11,8 @@ class SignUpProvider with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _db = FirebaseFirestore.instance;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final AuthenticationRepository authenticationRepository = AuthenticationRepository();
+  final AuthenticationRepository authenticationRepository =
+      AuthenticationRepository();
 
   bool _isVisible = true;
   final TextEditingController _name = TextEditingController();
@@ -60,14 +61,6 @@ class SignUpProvider with ChangeNotifier {
         }
       } catch (e) {
         throw e.toString();
-      } finally {
-        _isLoading = false;
-        notifyListeners();
-        if (context.mounted) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => widget),
-          );
-        }
       }
     } else {
       throw 'Error on create account';

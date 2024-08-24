@@ -5,8 +5,11 @@ import 'package:github_tmdb/repository/authentication/authentication_repository.
 class SignOutProvider with ChangeNotifier {
   SignOutProvider();
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   UserModel? _userModel;
   bool _isLoading = false;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   bool get isLoading => _isLoading;
   UserModel? get userModel => _userModel;
@@ -41,15 +44,25 @@ class SignOutProvider with ChangeNotifier {
     }
   }
 
-  void deleteAccount(BuildContext context) async {
+  void deleteAccount(
+    BuildContext context,
+  ) async {
     try {
-      await authenticationRepository.deleteAccount();
-    } catch (e) {
-      throw e.toString();
-    } finally {
-      if (context.mounted) {
-        authenticationRepository.screenRedirect(context);
+      if (formKey.currentState!.validate()) {
+        await authenticationRepository.deleteAccount(email.text, password.text,context);
+        if (context.mounted) {
+          authenticationRepository.screenRedirect(context);
+          ScaffoldMessenger.of(context).clearSnackBars();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Delete Account Succeed'),
+            ),
+          );
+        }
       }
+      
+    } catch (e) {
+      throw 'error re-authentication';
     }
   }
 }

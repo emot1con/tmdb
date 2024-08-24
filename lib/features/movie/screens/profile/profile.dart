@@ -1,25 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/signout/signout_provider.dart';
+import 'package:github_tmdb/features/movie/screens/profile/widgets/user_detail.dart';
+import 'package:github_tmdb/features/movie/screens/signout/signout.dart';
 import 'package:github_tmdb/widgets/button/button_movie.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<SignOutProvider>().getUserData();
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,41 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Consumer<SignOutProvider>(
-                builder: (context, value, child) {
-                  if (value.isLoading) {
-                    return const TShimmer(height: 150);
-                  }
-                  if (value.userModel != null) {
-                    final user = value.userModel!;
-                    return Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            user.name,
-                            style: const TextStyle(
-                              fontSize: TSizes.largeTextSize,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: TSizes.spaceBtwItem),
-                          Text(
-                            user.userName,
-                            style: const TextStyle(
-                              fontSize: TSizes.mediumTextSize,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: TSizes.spaceBtwItem),
-                          Text(user.email),
-                        ],
-                      ),
-                    );
-                  }
-                  return const TShimmer(height: 150);
-                },
-              ),
+              const UserDetail(),
               const SizedBox(height: TSizes.spaceBtwSection),
               Column(
                 children: [
@@ -87,7 +42,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.red,
                     icon: Icons.delete_forever,
                     onTap: () {
-                      SignOutProvider().deleteAccount(context);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const SignOut(),
+                        ),
+                      );
                     },
                   ),
                 ],
@@ -99,3 +58,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

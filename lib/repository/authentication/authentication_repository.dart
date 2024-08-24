@@ -9,17 +9,20 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepository with ChangeNotifier {
   final _auth = FirebaseAuth.instance;
-
   screenRedirect(BuildContext context) async {
     try {
       if (_auth.currentUser != null) {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const TBottomNavigationBar(),
-        ));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const TBottomNavigationBar(),
+          ),
+        );
       } else {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
       }
     } catch (e) {
       throw e.toString();
@@ -113,18 +116,54 @@ class AuthenticationRepository with ChangeNotifier {
     }
   }
 
-  Future<void> deleteAccount() async {
+  Future<void> deleteAccount(
+      String email, String password, BuildContext context) async {
     try {
-      await _auth.currentUser!.delete();
+      User? user = _auth.currentUser;
+      if (user == null) {
+        throw 'No user is currently signed in';
+      }
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+      await user.reauthenticateWithCredential(credential);
+
+      await user.delete();
+
       await FirebaseFirestore.instance
           .collection("Users")
-          .doc(_auth.currentUser!.uid)
+          .doc(user.uid)
           .delete();
     } on FirebaseAuthException catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Incorrect Password'),
+          ),
+        );
+      }
       throw e.toString();
     } on FirebaseException catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Incorrect Password'),
+          ),
+        );
+      }
       throw e.toString();
     } catch (e) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).clearSnackBars();
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Incorrect Password'),
+          ),
+        );
+      }
       throw e.toString();
     }
   }
