@@ -37,6 +37,7 @@ class _DetailMovieState extends State<DetailMovie> {
             context,
             movieId: widget.movieId,
           );
+      context.read<FavoriteMovieProvider>().isFavorites(widget.movieId);
     });
     super.initState();
   }
@@ -165,23 +166,26 @@ class _DetailMovieState extends State<DetailMovie> {
                                   favorite.setFavoriteMovies(
                                     movie.id,
                                     movie.posterPath,
+                                    movie.tagline,
+                                    movie.voteCount,
+                                    movie.voteAverage,
+                                    movie.title,
                                   );
-                                  favorite.isFavorites(movie.id);
                                   ScaffoldMessenger.of(context)
                                       .clearSnackBars();
                                   if (favorite.isFavorite) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text(
-                                            'Movie added to your favorites'),
+                                            'Movie removed from your favorites'),
                                       ),
                                     );
                                     return;
                                   }
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text(
-                                          'Movie removed from your favorites'),
+                                      content:
+                                          Text('Movie added to your favorites'),
                                     ),
                                   );
                                 },
@@ -190,8 +194,8 @@ class _DetailMovieState extends State<DetailMovie> {
                                   color: Provider.of<FavoriteMovieProvider>(
                                               context)
                                           .isFavorite
-                                      ? Colors.white
-                                      : Colors.amber,
+                                      ? Colors.amber
+                                      : Colors.white,
                                 ),
                               ),
                             ),

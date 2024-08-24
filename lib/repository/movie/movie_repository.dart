@@ -145,6 +145,10 @@ class MovieRepository with ChangeNotifier {
   Future<void> setFavoriteMovies({
     required int movieId,
     required String poster,
+    required String tagline,
+    required int voteCount,
+    required double voteAverage,
+    required String title,
   }) async {
     try {
       final favoriteMovies =
@@ -153,6 +157,10 @@ class MovieRepository with ChangeNotifier {
         await _db.collection('Favorite Movie').doc(movieId.toString()).set({
           'movieId': movieId,
           'poster': poster,
+          'tagline': tagline,
+          'voteCount': voteCount,
+          'voteAverage': voteAverage,
+          'title': title,
         });
         return;
       }
@@ -180,6 +188,4 @@ class MovieRepository with ChangeNotifier {
       throw e.toString();
     }
   }
-
-
 }

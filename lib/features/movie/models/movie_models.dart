@@ -109,13 +109,30 @@ class ListFavoriteModel {
 }
 
 class FavoriteMovieModel {
-  FavoriteMovieModel({required this.movieId, required this.poster});
+  FavoriteMovieModel({
+    required this.tagline,
+    required this.voteCount,
+    required this.voteAverage,
+    required this.movieId,
+    required this.poster,
+    required this.title,
+  });
   final int movieId;
   final String poster;
+  final String tagline;
+  final int voteCount;
+  final double voteAverage;
+  final String title;
 
   factory FavoriteMovieModel.fromJson(DocumentSnapshot snapshot) =>
       FavoriteMovieModel(
         movieId: snapshot['movieId'],
         poster: snapshot['poster'],
+        tagline: snapshot['tagline'],
+        voteCount: snapshot['voteCount'],
+        voteAverage: snapshot['voteAverage'],
+        title: snapshot['title'],
       );
+
+  
 }

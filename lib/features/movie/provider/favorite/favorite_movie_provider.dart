@@ -13,10 +13,24 @@ class FavoriteMovieProvider with ChangeNotifier {
 
   List<FavoriteMovieModel>? get favoriteMovies => _favoriteMovies;
 
-  void setFavoriteMovies(int movieId, String poster) async {
+  void setFavoriteMovies(
+    int movieId,
+    String poster,
+    String tagline,
+    int voteCount,
+    double voteAverage,
+    String title,
+  ) async {
     try {
       await _movieRepository.setFavoriteMovies(
-          movieId: movieId, poster: poster);
+        movieId: movieId,
+        poster: poster,
+        tagline: tagline,
+        voteCount: voteCount,
+        voteAverage: voteAverage,
+        title: title,
+      );
+      isFavorites(movieId);
     } catch (e) {
       throw e.toString();
     }
@@ -28,9 +42,7 @@ class FavoriteMovieProvider with ChangeNotifier {
     try {
       final favoriteMovies = await _movieRepository.getAllFavoriteMovies();
       _favoriteMovies = favoriteMovies;
-      _favoriteMovies?.forEach((movie) {
-        print(movie.movieId);
-      });
+      _favoriteMovies?.forEach((movie) {});
     } catch (e) {
       throw e.toString();
     } finally {
@@ -47,7 +59,6 @@ class FavoriteMovieProvider with ChangeNotifier {
           .get();
       isFavorite = favorite.exists;
       notifyListeners();
-      print('$isFavorite provider');
     } catch (e) {
       throw e.toString();
     }
