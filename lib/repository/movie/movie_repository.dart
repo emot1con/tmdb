@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dartz/dartz.dart';
 
@@ -151,10 +152,19 @@ class MovieRepository with ChangeNotifier {
     required String title,
   }) async {
     try {
-      final favoriteMovies =
-          await _db.collection('Favorite Movie').doc(movieId.toString()).get();
+      final favoriteMovies = await _db
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('Favorite Movies')
+          .doc(movieId.toString())
+          .get();
       if (!favoriteMovies.exists) {
-        await _db.collection('Favorite Movie').doc(movieId.toString()).set({
+        await _db
+            .collection('Users')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('Favorite Movies')
+            .doc(movieId.toString())
+            .set({
           'movieId': movieId,
           'poster': poster,
           'tagline': tagline,
@@ -172,7 +182,12 @@ class MovieRepository with ChangeNotifier {
 
   Future<void> deleteFavoriteMovie(int movieId) async {
     try {
-      await _db.collection('Favorite Movie').doc(movieId.toString()).delete();
+      await _db
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('Favorite Movies')
+          .doc(movieId.toString())
+          .delete();
     } catch (e) {
       throw e.toString();
     }
@@ -180,7 +195,11 @@ class MovieRepository with ChangeNotifier {
 
   Future<List<FavoriteMovieModel>> getAllFavoriteMovies() async {
     try {
-      final snapshot = await _db.collection('Favorite Movie').get();
+      final snapshot = await _db
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('Favorite Movies')
+          .get();
       return snapshot.docs
           .map((doc) => FavoriteMovieModel.fromJson(doc))
           .toList();
