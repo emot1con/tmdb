@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/features/movie/provider/movies/search_movie.dart';
-import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
-import 'package:github_tmdb/features/movie/screens/paged_movie/paged_movie.dart';
-import 'package:github_tmdb/features/movie/screens/home/search_movie.dart';
-import 'package:github_tmdb/utils/validators/validation.dart';
-import 'package:github_tmdb/widgets/button/icon_button.dart';
-import 'package:github_tmdb/widgets/container/search_container.dart';
-import 'package:github_tmdb/widgets/textform/textform_widget.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
+import 'package:github_tmdb/features/movie/screens/paged_movie/paged_movie.dart';
+import 'package:github_tmdb/features/movie/screens/home/search_movie.dart';
+import 'package:github_tmdb/widgets/container/search_container.dart';
 import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/constant/colors.dart';
 import 'package:github_tmdb/constant/sizes.dart';

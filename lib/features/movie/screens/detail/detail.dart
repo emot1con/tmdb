@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/features/movie/provider/favorite/favorite_movie_provider.dart';
 import 'package:provider/provider.dart';

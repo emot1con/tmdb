@@ -1,14 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:github_tmdb/features/movie/provider/movies/popular_movie.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:github_tmdb/features/movie/provider/movies/upcoming_movie.dart';
 import 'package:github_tmdb/features/movie/screens/detail/detail.dart';
 import 'package:github_tmdb/widgets/wrap/genres.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
-
 import 'package:github_tmdb/constant/api_constants.dart';
 import 'package:github_tmdb/constant/sizes.dart';
-import 'package:github_tmdb/features/movie/provider/movies/discover_movie.dart';
 import 'package:github_tmdb/widgets/container/rounded_container.dart';
 import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
 

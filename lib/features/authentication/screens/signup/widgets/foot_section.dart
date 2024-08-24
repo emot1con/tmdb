@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
+
 import 'package:github_tmdb/widgets/button/button_with_text.dart';
-import 'package:github_tmdb/widgets/button/elevated_button.dart';
 import 'package:github_tmdb/widgets/divider/divder.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 
@@ -14,7 +13,6 @@ class FootSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        
         const TDivider(title: 'Or'),
         const SizedBox(height: TSizes.spaceBtwSection - 20),
         TButtonWithText(

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/movie/models/movie_models.dart';
 import 'package:github_tmdb/features/movie/provider/movies/search_movie.dart';
-import 'package:github_tmdb/features/movie/screens/home/widgets/poster_movie.dart';
 import 'package:github_tmdb/widgets/grid/movie_grid.dart';
-import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
-import 'package:provider/provider.dart';
 
 class SearchScreen extends SearchDelegate<MovieModel> {
   @override

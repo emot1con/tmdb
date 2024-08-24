@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/widgets/text/detail_subtitle.dart';
 
 class TDetailAbout extends StatelessWidget {
   const TDetailAbout({

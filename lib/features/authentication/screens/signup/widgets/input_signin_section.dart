@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:github_tmdb/widgets/button/button_with_text.dart';
+import 'package:provider/provider.dart';
+
 import 'package:github_tmdb/widgets/button/elevated_button.dart';
-import 'package:github_tmdb/widgets/divider/divder.dart';
 import 'package:github_tmdb/widgets/textform/textform_widget.dart';
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/signup/signup_provider.dart';
-import 'package:github_tmdb/features/authentication/screens/signup/widgets/foot_section.dart';
 import 'package:github_tmdb/features/movie/screens/home/home.dart';
 import 'package:github_tmdb/utils/validators/validation.dart';
-import 'package:provider/provider.dart';
 
 class InputSignInSection extends StatelessWidget {
   const InputSignInSection({

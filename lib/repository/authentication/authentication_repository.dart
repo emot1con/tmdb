@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:github_tmdb/features/authentication/models/user_model.dart';
 import 'package:github_tmdb/features/authentication/screens/login/login.dart';
-import 'package:github_tmdb/features/movie/screens/home/home.dart';
 import 'package:github_tmdb/features/movie/screens/navigations/bottom_navigation_bar.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepository with ChangeNotifier {
   final _auth = FirebaseAuth.instance;

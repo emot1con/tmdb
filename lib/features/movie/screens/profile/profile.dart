@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'package:github_tmdb/constant/sizes.dart';
 import 'package:github_tmdb/features/authentication/provider/signout/signout_provider.dart';
 import 'package:github_tmdb/features/movie/screens/profile/widgets/user_detail.dart';
 import 'package:github_tmdb/features/movie/screens/signout/signout.dart';
 import 'package:github_tmdb/widgets/button/button_movie.dart';
-import 'package:github_tmdb/widgets/shimmer/shimmer_item.dart';
-import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
