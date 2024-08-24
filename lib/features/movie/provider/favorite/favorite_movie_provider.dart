@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:github_tmdb/features/movie/models/movie_models.dart';
 import 'package:github_tmdb/repository/movie/movie_repository.dart';
@@ -54,7 +55,9 @@ class FavoriteMovieProvider with ChangeNotifier {
   void isFavorites(int movieId) async {
     try {
       final favorite = await FirebaseFirestore.instance
-          .collection('Favorite Movie')
+          .collection('Users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('Favorite Movies')
           .doc(movieId.toString())
           .get();
       isFavorite = favorite.exists;
