@@ -1,16 +1,37 @@
-# github_tmdb
+# Flutter TMDB App
 
-A new Flutter project.
+A Flutter application that fetches and displays movie data from The Movie Database (TMDb) API.
 
-## Getting Started
+## Features
+- Browse popular, top-rated, and upcoming movies.
+- Search for movies.
+- View detailed movie information.
+- Responsive and modern UI.
 
-This project is a starting point for a Flutter application.
+## Installation
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/emot1con/tmdb.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd tmdb
+   ```
+3. Install dependencies:
+   ```sh
+   flutter pub get
+   ```
+4. Add your TMDb API key:
+   - Create a `.env` file in the root directory.
+   - Add the following line:
+     ```env
+     TMDB_API_KEY=your_api_key_here
+     ```
+5. Run the app:
+   ```sh
+   flutter run
+   ```
 
-A few resources to get you started if this is your first Flutter project:
+## API Key Setup
+To use TMDb API, get your API key from [TMDb Developer Portal](https://www.themoviedb.org/settings/api) and replace `your_api_key_here` in the `.env` file.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
